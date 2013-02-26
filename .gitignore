@@ -8,3 +8,4 @@ vendor/
 
 # Ignore build files
 phing/build.properties
+phpunit.xml
