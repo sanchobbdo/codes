@@ -43,4 +43,9 @@
     <target name="update-dependencies" depends="install-composer">
         <exec command="${cmd.composer} update --dev" passthru="true" />
     </target>
+
+    <target name="clean-dependencies">
+        <delete dir="${project.basedir}/vendor"/>
+        <delete file="${project.basedir}/composer.lock" />
+    </target>
 </project>
