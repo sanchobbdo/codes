@@ -22,20 +22,34 @@ class LuniqTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1000, $luniq->getLength());
     }
 
-    public function testOfReturnsAString()
+    /**
+     * @dataProvider ofReturnsCodeForIndex
+     */
+    public function testOfReturnsCodeForIndex($index, $code)
     {
-        $this->assertInternalType('string', $this->luniq->of(100));
+        $this->assertEquals($code, $this->luniq->of($index));
+    }
+
+
+    public function ofReturnsCodeForIndex()
+    {
+        return array(
+            array(123456, '2n9c00d7a3'),
+            array(900000, 'jag0bf80a5'),
+            array(16000000, '9ixogf2ef8a'),
+            array(20, '000k05ce1b'),
+        );
     }
 
     /**
-     * @dataProvider codesDataProvider
+     * @dataProvider isValidVerifiesCodesProvider
      */
-    public function testIsValidValidatesCodes($code, $assert)
+    public function testIsValidVerifiesCodes($code, $assert)
     {
         $this->assertEquals($assert, $this->luniq->isValid($code));
     }
 
-    public function codesDataProvider()
+    public function  isValidVerifiesCodesProvider()
     {
         return array(
             array('002s80e8d8', true),
