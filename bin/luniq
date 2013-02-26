@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+require_once 'vendor/autoload.php';
+
+use SanchoBBDO\Luniq\Command\Dump\DumpDbCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+$application->add(new DumpDbCommand);
+$application->run();
