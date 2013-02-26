@@ -2,7 +2,7 @@
 
 namespace SanchoBBDO;
 
-class Luniq implements \Iterator
+class Luniq implements \Iterator, \ArrayAccess
 {
     protected $position;
 
@@ -50,6 +50,26 @@ class Luniq implements \Iterator
     public function valid()
     {
         return $this->position < $this->getLength();
+    }
+
+    public function offsetExists($offset)
+    {
+        return is_int($offset) && $offset > -1 && $offset < $this->getLength();
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->of($offset);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        throw new \Exception("Can't set luniq values.");
+    }
+
+    public function offsetUnset($offset)
+    {
+        throw new \Exception("Can't unset luniq values.");
     }
 
     public function of($digit)

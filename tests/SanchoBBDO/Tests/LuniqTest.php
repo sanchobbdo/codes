@@ -30,6 +30,15 @@ class LuniqTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->luniq->getLength() - 1, $key);
     }
 
+    public function testAsArrayAccess()
+    {
+        for ($i = 0; $i < $this->luniq->getLength(); $i++) {
+            $this->assertTrue(isset($this->luniq[$i]));
+            $this->assertEquals($this->luniq->of($i), $this->luniq[$i]);
+        }
+
+        $this->assertFalse(isset($this->luniq[$this->luniq->getLength()]));
+    }
 
     public function testConstructorSetsConfig()
     {
