@@ -30,5 +30,12 @@ class Luniq
         $encoded = sha1($index.$this->getSecretKey());
         return $index.substr($encoded, 0, 6);
     }
+
+    public function isValid($code)
+    {
+        $index = substr($code, 0, 4);
+        $encoded = sha1($index.$this->getSecretKey());
+        return $index.substr($encoded, 0, 6) == $code;
+    }
 }
 
