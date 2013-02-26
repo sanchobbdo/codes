@@ -11,7 +11,7 @@
 
     <testsuites>
         <testsuite name="Luniq">
-            <directory>./tests/SanchoBBDO/Tests/Luniq</directory>
+            <directory>./tests/SanchoBBDO/Tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
