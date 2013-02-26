@@ -35,4 +35,8 @@
         </if>
         <echo message="cmd.composer is ${cmd.composer}" />
     </target>
+
+    <target name="install-dependencies" depends="install-composer">
+        <exec command="${cmd.composer} install --dev" passthru="true" />
+    </target>
 </project>
