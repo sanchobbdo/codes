@@ -39,4 +39,8 @@
     <target name="install-dependencies" depends="install-composer">
         <exec command="${cmd.composer} install --dev" passthru="true" />
     </target>
+
+    <target name="update-dependencies" depends="install-composer">
+        <exec command="${cmd.composer} update --dev" passthru="true" />
+    </target>
 </project>
