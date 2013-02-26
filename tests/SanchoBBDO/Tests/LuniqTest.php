@@ -7,9 +7,29 @@ class LuniqTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->luniq = new \SanchoBBDO\Luniq(array(
-            'secretKey' => '1461932c2e74b726c795742e1caa8b4a281ea09c'
+            'secretKey' => '1461932c2e74b726c795742e1caa8b4a281ea09c',
+            'length' => 10
         ));
     }
+
+    public function testAsIterator()
+    {
+        $this->assertInstanceOf('\Iterator', $this->luniq);
+
+        $i = 0;
+        foreach ($this->luniq as $key => $value) {
+            $this->assertEquals($i, $key);
+            $this->assertEquals($this->luniq->of($i), $value);
+            $i++;
+        }
+
+        if (!$i) {
+            $this->fail("Didn't iterate");
+        }
+
+        $this->assertEquals($this->luniq->getLength() - 1, $key);
+    }
+
 
     public function testConstructorSetsConfig()
     {

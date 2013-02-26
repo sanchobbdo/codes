@@ -2,8 +2,10 @@
 
 namespace SanchoBBDO;
 
-class Luniq
+class Luniq implements \Iterator
 {
+    protected $position;
+
     protected $secretKey;
     protected $length;
 
@@ -11,6 +13,8 @@ class Luniq
     {
         $this->secretKey = $config['secretKey'];
         $this->length = isset($config['length']) ? $config['length'] : 1679616;
+
+        $this->position = 0;
     }
 
     public function getSecretKey()
@@ -21,6 +25,31 @@ class Luniq
     public function getLength()
     {
         return $this->length;
+    }
+
+    public function current()
+    {
+        return $this->of($this->position);
+    }
+
+    public function rewind()
+    {
+        $this->position = 0;
+    }
+
+    public function next()
+    {
+        $this->position++;
+    }
+
+    public function key()
+    {
+        return $this->position;
+    }
+
+    public function valid()
+    {
+        return $this->position < $this->getLength();
     }
 
     public function of($digit)
