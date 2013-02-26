@@ -10,8 +10,8 @@
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
 
     <testsuites>
-        <testsuite name="my-project">
-            <directory>./tests</directory>
+        <testsuite name="Luniq">
+            <directory>./tests/SanchoBBDO/Tests/Luniq</directory>
         </testsuite>
     </testsuites>
 </phpunit>

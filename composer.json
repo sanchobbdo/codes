@@ -4,7 +4,10 @@
         "ext-mcrypt": "*"
     },
     "autoload": {
-
+        "psr-0": {
+            "SanchoBBDO\\Tests": "tests/",
+            "SanchoBBDO": "src/"
+        }
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
