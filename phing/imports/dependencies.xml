@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="../../" default="install-composer">
+
+    <property name="cmd.composer" value="" />
+
+    <target name="install-composer" description="Installs composer locally of it can't be found in build.properties or global install.">
+        <if>
+            <contains string="${cmd.composer}" substring="composer" />
+            <then>
+                <echo>Using composer at ${cmd.composer}</echo>
+            </then>
+        <else>
+            <exec command="which composer" outputProperty="cmd.composer" />
+            <if>
+                <contains string="${cmd.composer}" substring="composer" />
+                <then>
+                    <echo>Using composer at ${cmd.composer}</echo>
+                </then>
+
+                <elseif>
+                    <available file="${project.basedir}/composer.phar" />
+                    <then>
+                        <echo>Composer installed locally</echo>
+                        <property name="cmd.composer" value="${php.interpreter} ${project.basedir}/composer.phar" override="true" />
+                    </then>
+                </elseif>
+
+                <else>
+                    <echo message="Installing composer locally" />
+                    <exec command="curl -s http://getcomposer.org/installer | php" passthru="true" />
+                    <property name="cmd.composer" value="${php.interpreter} ${project.basedir}/composer.phar" override="true"/>
+                </else>
+            </if>
+        </else>
+        </if>
+        <echo message="cmd.composer is ${cmd.composer}" />
+    </target>
+</project>

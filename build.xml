@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="my-project" default="install-composer">
+    <property file="phing/build.properties" override="true" />
+
+    <property name="dir.imports" value="${project.basedir}/phing/imports" />
+
+    <import file="${dir.imports}/dependencies.xml" />
+</project>
