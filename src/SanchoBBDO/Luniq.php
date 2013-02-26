@@ -23,19 +23,36 @@ class Luniq
         return $this->length;
     }
 
-    public function of($index)
+    public function of($digit)
     {
-        $index = base_convert($index, 10, 36);
-        $index = str_pad($index, 4, '0', STR_PAD_LEFT);
-        $encoded = sha1($index.$this->getSecretKey());
-        return $index.substr($encoded, 0, 6);
+        $index = $this->base36($digit, 4);
+        return $this->generateFor($index);
     }
 
     public function isValid($code)
     {
-        $index = substr($code, 0, 4);
-        $encoded = sha1($index.$this->getSecretKey());
-        return $index.substr($encoded, 0, 6) == $code;
+        $index = $this->parseIndex($code);
+        return $this->generateFor($index) == $code;
+    }
+
+    protected function parseIndex($code)
+    {
+        return substr($code, 0, 4);
+    }
+
+    protected function base36($digit, $zerofill = 0)
+    {
+        $base36 = base_convert($digit, 10, 36);
+        return str_pad($base36, $zerofill, '0', STR_PAD_LEFT);
+    }
+
+    protected function generateFor($index)
+    {
+        return $index.substr($this->encrypt($index), 0, 6);
+    }
+
+    protected function encrypt($index)
+    {
+        return sha1($index.$this->getSecretKey());
     }
 }
-
