@@ -24,21 +24,6 @@ class CodesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->secretKey, $this->codes->secretKey);
     }
 
-    public function testAsArrayAccess()
-    {
-        for ($i = 0; $i < $this->codes->length; $i++) {
-            $this->assertTrue(isset($this->codes[$i]));
-            $this->assertEquals($this->codes->of($i), $this->codes[$i]);
-        }
-
-        $this->assertFalse(isset($this->codes[$this->codes->length]));
-    }
-
-    public function testAsCountable()
-    {
-        $this->assertEquals(10, count($this->codes));
-    }
-
     public function testConstructorSetsConfig()
     {
         $codes = new \SanchoBBDO\Codes(array(
@@ -57,7 +42,6 @@ class CodesTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals($code, $this->codes->of($index));
     }
-
 
     public function ofReturnsCodeForIndex()
     {

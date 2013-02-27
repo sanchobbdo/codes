@@ -5,9 +5,8 @@ namespace SanchoBBDO;
 use SanchoBBDO\Codes\CodesConfiguration;
 use Symfony\Component\Config\Definition\Processor;
 
-class Codes implements \ArrayAccess, \Countable
+class Codes
 {
-    protected $position;
     protected $setings;
 
     public function __construct($config)
@@ -39,31 +38,6 @@ class Codes implements \ArrayAccess, \Countable
             create_function('$match', 'return "_" . strtolower($match[0]);'),
             $val
         );
-    }
-
-    public function offsetExists($offset)
-    {
-        return is_int($offset) && $offset > -1 && $offset < count($this);
-    }
-
-    public function offsetGet($offset)
-    {
-        return $this->of($offset);
-    }
-
-    public function offsetSet($offset, $value)
-    {
-        throw new \Exception("Can't set codes values.");
-    }
-
-    public function offsetUnset($offset)
-    {
-        throw new \Exception("Can't unset codes values.");
-    }
-
-    public function count()
-    {
-        return $this->length;
     }
 
     public function of($digit)
