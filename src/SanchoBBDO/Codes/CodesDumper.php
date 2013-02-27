@@ -20,5 +20,7 @@ class CodesDumper
         foreach ($this->codesIterator as $code) {
             $this->writer->write($code);
         }
+
+        $this->writer->close();
     }
 }

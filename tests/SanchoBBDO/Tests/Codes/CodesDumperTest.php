@@ -38,4 +38,12 @@ class CodesDumperTest extends \PHPUnit_Framework_TestCase
 
         $this->dumper->dump();
     }
+
+    public function testCallsWriterCloseMethod()
+    {
+        $this->writer->expects($this->once())
+                     ->method('close');
+
+        $this->dumper->dump();
+    }
 }
