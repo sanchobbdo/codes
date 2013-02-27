@@ -15,6 +15,7 @@ class CodesConfiguration implements ConfigurationInterface
             ->children()
                 ->scalarNode('secret_key')
                     ->isRequired()
+                    ->cannotBeEmpty()
                 ->end()
             ->end();
         return $treeBuilder;

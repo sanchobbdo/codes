@@ -30,4 +30,14 @@ class CodesConfigurationTest extends \PHPUnit_Framework_TestCase
     {
         $this->process(array());
     }
+
+    /**
+     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testSecretKeyCannotEmpty()
+    {
+        $this->process(array(
+            'secret_key' => ''
+        ));
+    }
 }
