@@ -2,6 +2,7 @@
 
 namespace SanchoBBDO\Codes\Command\Dump;
 
+use SanchoBBDO\Codes\Codes;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,7 +47,7 @@ class DumpDbCommand extends Command
             $howmany = 10;
         }
 
-        $codes = new \SanchoBBDO\Codes(array('secret_key' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
+        $codes = new Codes(array('secret_key' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
         try {
             $progress = $this->getHelperSet()->get('progress');
             $progress->start($output, $howmany);

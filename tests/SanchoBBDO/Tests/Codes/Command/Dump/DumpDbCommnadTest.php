@@ -3,6 +3,7 @@
 namespace SanchoBBDO\Tests\Codes\Command\Test;
 
 use SanchoBBDO\Codes\Command\Dump\DumpDbCommand;
+use SanchoBBDO\Codes\Codes;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -92,7 +93,7 @@ class DumpDbCommandTest extends \PHPUnit_Framework_TestCase
         $this->db->query("DELETE FROM codes");
         $this->db->query("CREATE TABLE IF NOT EXISTS codes (id TEXT PRIMARY KEY)");
 
-        $codes = new \SanchoBBDO\Codes(array('secret_key' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
+        $codes = new Codes(array('secret_key' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
         $stmt = $this->db->prepare("INSERT INTO codes (id) VALUES (:id)");
         $stmt->bindValue(':id', $codes->of(2), SQLITE3_TEXT);
         $stmt->execute();

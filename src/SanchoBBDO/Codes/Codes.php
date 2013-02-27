@@ -1,6 +1,6 @@
 <?php
 
-namespace SanchoBBDO;
+namespace SanchoBBDO\Codes;
 
 use SanchoBBDO\Codes\CodesConfiguration;
 use Symfony\Component\Config\Definition\Processor;

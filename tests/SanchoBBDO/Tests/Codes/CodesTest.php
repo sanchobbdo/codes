@@ -2,13 +2,15 @@
 
 namespace SanchoBBDO\Tests;
 
+use SanchoBBDO\Codes\Codes;
+
 class CodesTest extends \PHPUnit_Framework_TestCase
 {
     protected $secretKey = '1461932c2e74b726c795742e1caa8b4a281ea09c';
 
     public function setUp()
     {
-        $this->codes = new \SanchoBBDO\Codes(array(
+        $this->codes = new Codes(array(
             'secret_key' => $this->secretKey,
             'length' => 10
         ));
@@ -26,7 +28,7 @@ class CodesTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructorSetsConfig()
     {
-        $codes = new \SanchoBBDO\Codes(array(
+        $codes = new Codes(array(
             'secret_key' => 'some secret key',
             'length' => 1000
         ));

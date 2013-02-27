@@ -2,18 +2,19 @@
 
 namespace SanchoBBDO\Tests\Codes;
 
+use SanchoBBDO\Codes\Codes;
 use SanchoBBDO\Codes\CodesIterator;
 
 class CodesIteratorTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->codes = new \SanchoBBDO\Codes(array(
+        $this->codes = new Codes(array(
             'secret_key' =>  '1461932c2e74b726c795742e1caa8b4a281ea09c',
             'length' => 10
         ));
 
-        $this->iterator = new \SanchoBBDO\Codes\CodesIterator($this->codes);
+        $this->iterator = new CodesIterator($this->codes);
     }
 
     public function testIterator()

@@ -2,12 +2,14 @@
 
 namespace SanchoBBDO\Codes;
 
+use SanchoBBDO\Codes\Codes;
+
 class CodesIterator implements \Iterator
 {
     protected $codes;
     protected $position;
 
-    public function __construct(\SanchoBBDO\Codes $codes)
+    public function __construct(Codes $codes)
     {
         $this->codes = $codes;
         $this->position = 0;
