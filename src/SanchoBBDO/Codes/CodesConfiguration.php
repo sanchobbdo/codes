@@ -17,7 +17,11 @@ class CodesConfiguration implements ConfigurationInterface
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
+                ->integerNode('length')
+                    ->min(1)
+                ->end()
             ->end();
+
         return $treeBuilder;
     }
 }

@@ -40,4 +40,15 @@ class CodesConfigurationTest extends \PHPUnit_Framework_TestCase
             'secret_key' => ''
         ));
     }
+
+    /**
+     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testLengthIsInteger()
+    {
+        $this->process(array(
+            'secret_key' => 'adsadas',
+            'length' => 'asfdsfsd'
+        ));
+    }
 }
