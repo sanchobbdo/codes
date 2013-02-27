@@ -11,7 +11,12 @@ class CodesConfiguration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('codes');
-
+        $rootNode
+            ->children()
+                ->scalarNode('secret_key')
+                    ->isRequired()
+                ->end()
+            ->end();
         return $treeBuilder;
     }
 }
