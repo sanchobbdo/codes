@@ -16,8 +16,6 @@ class Codes
             new CodesConfiguration,
             array($config)
         );
-
-        $this->position = 0;
     }
 
     public function __get($name)
