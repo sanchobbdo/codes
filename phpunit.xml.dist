@@ -10,7 +10,7 @@
          testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader">
 
     <testsuites>
-        <testsuite name="Luniq">
+        <testsuite name="Codes">
             <directory>./tests/SanchoBBDO/Tests/</directory>
         </testsuite>
     </testsuites>

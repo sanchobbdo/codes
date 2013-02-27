@@ -2,7 +2,7 @@
 
 namespace SanchoBBDO;
 
-class Luniq implements \Iterator, \ArrayAccess, \Countable
+class Codes implements \Iterator, \ArrayAccess, \Countable
 {
     protected $position;
 
@@ -64,12 +64,12 @@ class Luniq implements \Iterator, \ArrayAccess, \Countable
 
     public function offsetSet($offset, $value)
     {
-        throw new \Exception("Can't set luniq values.");
+        throw new \Exception("Can't set codes values.");
     }
 
     public function offsetUnset($offset)
     {
-        throw new \Exception("Can't unset luniq values.");
+        throw new \Exception("Can't unset codes values.");
     }
 
     public function count()

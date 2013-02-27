@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="luniq" default="test">
+<project name="codes" default="test">
     <property file="phing/build.properties" override="true" />
 
     <property name="dir.imports" value="${project.basedir}/phing/imports" />

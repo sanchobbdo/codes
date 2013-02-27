@@ -1,6 +1,6 @@
 <?php
 
-namespace SanchoBBDO\Luniq\Command\Dump;
+namespace SanchoBBDO\Codes\Command\Dump;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -46,7 +46,7 @@ class DumpDbCommand extends Command
             $howmany = 10;
         }
 
-        $luniq = new \SanchoBBDO\Luniq(array('secretKey' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
+        $codes = new \SanchoBBDO\Codes(array('secretKey' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
         try {
             $progress = $this->getHelperSet()->get('progress');
             $progress->start($output, $howmany);
@@ -54,8 +54,8 @@ class DumpDbCommand extends Command
             $t = time();
 
             for ($i = 0; $i < $howmany; $i++) {
-                $stmt = $this->db->prepare("INSERT INTO luniq (id) VALUES (:id)");
-                $stmt->bindValue(':id', $luniq->of($i), SQLITE3_TEXT);
+                $stmt = $this->db->prepare("INSERT INTO codes (id) VALUES (:id)");
+                $stmt->bindValue(':id', $codes->of($i), SQLITE3_TEXT);
                 $stmt->execute();
 
                 $progress->advance();
@@ -72,12 +72,12 @@ class DumpDbCommand extends Command
 
     protected function dropTable()
     {
-        $this->db->query("DELETE FROM luniq");
+        $this->db->query("DELETE FROM codes");
     }
 
     protected function createDbTable()
     {
-        $this->db->query("CREATE TABLE IF NOT EXISTS luniq (
+        $this->db->query("CREATE TABLE IF NOT EXISTS codes (
                             id VARCHAR NOT NULL PRIMARY KEY)");
     }
 }

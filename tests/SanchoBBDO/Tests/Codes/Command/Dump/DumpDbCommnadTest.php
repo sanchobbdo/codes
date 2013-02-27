@@ -1,8 +1,8 @@
 <?php
 
-namespace SanchoBBDO\Tests\Luniq\Command\Test;
+namespace SanchoBBDO\Tests\Codes\Command\Test;
 
-use SanchoBBDO\Luniq\Command\Dump\DumpDbCommand;
+use SanchoBBDO\Codes\Command\Dump\DumpDbCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -33,32 +33,32 @@ class DumpDbCommandTest extends \PHPUnit_Framework_TestCase
         $this->executeCommand();
 
         try {
-            $this->db->query('SELECT 1 FROM luniq');
+            $this->db->query('SELECT 1 FROM codes');
         } catch (\PDOException $e) {
-            $this->fail('Table luniq was not created');
+            $this->fail('Table codes was not created');
         }
     }
 
     public function testEmptiesDbBeforeCreating()
     {
-        $this->db->query("CREATE TABLE IF NOT EXISTS luniq (id TEXT PRIMARY KEY)");
-        $this->db->query("INSERT INTO luniq (id) VALUES ('my_id_string')");
+        $this->db->query("CREATE TABLE IF NOT EXISTS codes (id TEXT PRIMARY KEY)");
+        $this->db->query("INSERT INTO codes (id) VALUES ('my_id_string')");
 
         $this->executeCommand();
 
-        $result = $this->db->query("SELECT * FROM luniq WHERE id = 'my_id_string'")->fetchAll();
+        $result = $this->db->query("SELECT * FROM codes WHERE id = 'my_id_string'")->fetchAll();
         $this->assertCount(0, $result);
     }
 
     public function testKeepsTableDataIfFlagIsUsed()
     {
-        $this->db->query("DELETE FROM luniq");
-        $this->db->query("CREATE TABLE IF NOT EXISTS luniq (id TEXT PRIMARY KEY)");
-        $this->db->query("INSERT INTO luniq (id) VALUES ('my_id_string')");
+        $this->db->query("DELETE FROM codes");
+        $this->db->query("CREATE TABLE IF NOT EXISTS codes (id TEXT PRIMARY KEY)");
+        $this->db->query("INSERT INTO codes (id) VALUES ('my_id_string')");
 
         $this->executeCommand(1, true);
 
-        $result = $this->db->query("SELECT * FROM luniq WHERE id = 'my_id_string'")->fetchAll();
+        $result = $this->db->query("SELECT * FROM codes WHERE id = 'my_id_string'")->fetchAll();
         $this->assertCount(1, $result);
     }
 
@@ -68,7 +68,7 @@ class DumpDbCommandTest extends \PHPUnit_Framework_TestCase
     public function testGeneratesTheGivenNumberOfEntries($num)
     {
         $this->executeCommand($num);
-        $result = $this->db->query("SELECT * FROM luniq")->fetchAll();
+        $result = $this->db->query("SELECT * FROM codes")->fetchAll();
         $this->assertCount($num, $result);
     }
 
@@ -89,12 +89,12 @@ class DumpDbCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testNotifiesWhenSomethingWentWrong()
     {
-        $this->db->query("DELETE FROM luniq");
-        $this->db->query("CREATE TABLE IF NOT EXISTS luniq (id TEXT PRIMARY KEY)");
+        $this->db->query("DELETE FROM codes");
+        $this->db->query("CREATE TABLE IF NOT EXISTS codes (id TEXT PRIMARY KEY)");
 
-        $luniq = new \SanchoBBDO\Luniq(array('secretKey' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
-        $stmt = $this->db->prepare("INSERT INTO luniq (id) VALUES (:id)");
-        $stmt->bindValue(':id', $luniq->of(2), SQLITE3_TEXT);
+        $codes = new \SanchoBBDO\Codes(array('secretKey' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
+        $stmt = $this->db->prepare("INSERT INTO codes (id) VALUES (:id)");
+        $stmt->bindValue(':id', $codes->of(2), SQLITE3_TEXT);
         $stmt->execute();
 
         $this->executeCommand(10, true);

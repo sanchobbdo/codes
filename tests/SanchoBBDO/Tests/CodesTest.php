@@ -2,11 +2,11 @@
 
 namespace SanchoBBDO\Tests;
 
-class LuniqTest extends \PHPUnit_Framework_TestCase
+class CodesTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->luniq = new \SanchoBBDO\Luniq(array(
+        $this->codes = new \SanchoBBDO\Codes(array(
             'secretKey' => '1461932c2e74b726c795742e1caa8b4a281ea09c',
             'length' => 10
         ));
@@ -15,9 +15,9 @@ class LuniqTest extends \PHPUnit_Framework_TestCase
     public function testAsIterator()
     {
         $i = 0;
-        foreach ($this->luniq as $key => $value) {
+        foreach ($this->codes as $key => $value) {
             $this->assertEquals($i, $key);
-            $this->assertEquals($this->luniq->of($i), $value);
+            $this->assertEquals($this->codes->of($i), $value);
             $i++;
         }
 
@@ -25,33 +25,33 @@ class LuniqTest extends \PHPUnit_Framework_TestCase
             $this->fail("Didn't iterate");
         }
 
-        $this->assertEquals($this->luniq->getLength() - 1, $key);
+        $this->assertEquals($this->codes->getLength() - 1, $key);
     }
 
     public function testAsArrayAccess()
     {
-        for ($i = 0; $i < $this->luniq->getLength(); $i++) {
-            $this->assertTrue(isset($this->luniq[$i]));
-            $this->assertEquals($this->luniq->of($i), $this->luniq[$i]);
+        for ($i = 0; $i < $this->codes->getLength(); $i++) {
+            $this->assertTrue(isset($this->codes[$i]));
+            $this->assertEquals($this->codes->of($i), $this->codes[$i]);
         }
 
-        $this->assertFalse(isset($this->luniq[$this->luniq->getLength()]));
+        $this->assertFalse(isset($this->codes[$this->codes->getLength()]));
     }
 
     public function testAsCountable()
     {
-        $this->assertEquals(10, count($this->luniq));
+        $this->assertEquals(10, count($this->codes));
     }
 
     public function testConstructorSetsConfig()
     {
-        $luniq = new \SanchoBBDO\Luniq(array(
+        $codes = new \SanchoBBDO\Codes(array(
             'secretKey' => 'some secret key',
             'length' => 1000
         ));
 
-        $this->assertEquals('some secret key', $luniq->getSecretKey());
-        $this->assertEquals(1000, $luniq->getLength());
+        $this->assertEquals('some secret key', $codes->getSecretKey());
+        $this->assertEquals(1000, $codes->getLength());
     }
 
     /**
@@ -59,7 +59,7 @@ class LuniqTest extends \PHPUnit_Framework_TestCase
      */
     public function testOfReturnsCodeForIndex($index, $code)
     {
-        $this->assertEquals($code, $this->luniq->of($index));
+        $this->assertEquals($code, $this->codes->of($index));
     }
 
 
@@ -78,7 +78,7 @@ class LuniqTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsValidVerifiesCodes($code, $assert)
     {
-        $this->assertEquals($assert, $this->luniq->isValid($code));
+        $this->assertEquals($assert, $this->codes->isValid($code));
     }
 
     public function  isValidVerifiesCodesProvider()
