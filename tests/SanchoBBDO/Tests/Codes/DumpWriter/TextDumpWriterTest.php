@@ -8,14 +8,13 @@ use SanchoBBDO\Codes\DumpWriter\TextDumpWriter;
 class TextDumpWriterTest extends \PHPUnit_Framework_TestCase
 {
     protected $root;
-    protected $basePath = 'test';
-    protected $fileName = 'dump.txt';
+    protected $file = 'dump.txt';
 
     public function setUp()
     {
-        $this->root = vfsStream::setup($this->basePath);
-        $file = vfsStream::url($this->basePath).'/'.$this->fileName;
-        $this->writer = new TextDumpWriter($file);
+        $this->root = vfsStream::setup('dump');
+        $this->filePath = vfsStream::url("dump/{$this->file}");
+        $this->writer = new TextDumpWriter($this->filePath);
     }
 
     public function tearDown()
@@ -25,9 +24,9 @@ class TextDumpWriterTest extends \PHPUnit_Framework_TestCase
 
     public function testOpenCreatesFile()
     {
-        $this->assertFalse($this->root->hasChild($this->fileName));
+        $this->assertFalse($this->root->hasChild($this->file));
         $this->writer->open();
-        $this->assertTrue($this->root->hasChild($this->fileName));
+        $this->assertTrue($this->root->hasChild($this->file));
     }
 
     public function testWritesToFile()
@@ -36,6 +35,6 @@ class TextDumpWriterTest extends \PHPUnit_Framework_TestCase
         $this->writer->write('Hola');
         $this->writer->write('señor');
 
-        $this->assertEquals("Hola\nseñor\n", file_get_contents(vfsStream::url($this->basePath.'/'.$this->fileName)));
+        $this->assertEquals("Hola\nseñor\n", file_get_contents($this->filePath));
     }
 }
