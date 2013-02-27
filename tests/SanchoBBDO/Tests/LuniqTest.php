@@ -14,8 +14,6 @@ class LuniqTest extends \PHPUnit_Framework_TestCase
 
     public function testAsIterator()
     {
-        $this->assertInstanceOf('\Iterator', $this->luniq);
-
         $i = 0;
         foreach ($this->luniq as $key => $value) {
             $this->assertEquals($i, $key);
