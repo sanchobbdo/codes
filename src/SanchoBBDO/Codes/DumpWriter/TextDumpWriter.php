@@ -18,7 +18,7 @@ class TextDumpWriter implements DumpWriterInterface
 
     public function write($code)
     {
-
+        fwrite($this->handle, "{$code}\n");
     }
 
     public function close() {
