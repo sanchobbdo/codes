@@ -24,22 +24,6 @@ class CodesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->secretKey, $this->codes->secretKey);
     }
 
-    public function testAsIterator()
-    {
-        $i = 0;
-        foreach ($this->codes as $key => $value) {
-            $this->assertEquals($i, $key);
-            $this->assertEquals($this->codes->of($i), $value);
-            $i++;
-        }
-
-        if (!$i) {
-            $this->fail("Didn't iterate");
-        }
-
-        $this->assertEquals($this->codes->length - 1, $key);
-    }
-
     public function testAsArrayAccess()
     {
         for ($i = 0; $i < $this->codes->length; $i++) {

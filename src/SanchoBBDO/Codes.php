@@ -5,7 +5,7 @@ namespace SanchoBBDO;
 use SanchoBBDO\Codes\CodesConfiguration;
 use Symfony\Component\Config\Definition\Processor;
 
-class Codes implements \Iterator, \ArrayAccess, \Countable
+class Codes implements \ArrayAccess, \Countable
 {
     protected $position;
     protected $setings;
@@ -39,31 +39,6 @@ class Codes implements \Iterator, \ArrayAccess, \Countable
             create_function('$match', 'return "_" . strtolower($match[0]);'),
             $val
         );
-    }
-
-    public function current()
-    {
-        return $this->of($this->position);
-    }
-
-    public function rewind()
-    {
-        $this->position = 0;
-    }
-
-    public function next()
-    {
-        $this->position++;
-    }
-
-    public function key()
-    {
-        return $this->position;
-    }
-
-    public function valid()
-    {
-        return $this->position < count($this);
     }
 
     public function offsetExists($offset)
