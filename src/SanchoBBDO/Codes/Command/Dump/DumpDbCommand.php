@@ -46,7 +46,7 @@ class DumpDbCommand extends Command
             $howmany = 10;
         }
 
-        $codes = new \SanchoBBDO\Codes(array('secretKey' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
+        $codes = new \SanchoBBDO\Codes(array('secret_key' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
         try {
             $progress = $this->getHelperSet()->get('progress');
             $progress->start($output, $howmany);

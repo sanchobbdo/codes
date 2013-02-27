@@ -92,7 +92,7 @@ class DumpDbCommandTest extends \PHPUnit_Framework_TestCase
         $this->db->query("DELETE FROM codes");
         $this->db->query("CREATE TABLE IF NOT EXISTS codes (id TEXT PRIMARY KEY)");
 
-        $codes = new \SanchoBBDO\Codes(array('secretKey' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
+        $codes = new \SanchoBBDO\Codes(array('secret_key' => 'lia4ufdEX7XSJWhEHdWFnKsIeMI='));
         $stmt = $this->db->prepare("INSERT INTO codes (id) VALUES (:id)");
         $stmt->bindValue(':id', $codes->of(2), SQLITE3_TEXT);
         $stmt->execute();

@@ -2,29 +2,43 @@
 
 namespace SanchoBBDO;
 
+use SanchoBBDO\Codes\CodesConfiguration;
+use Symfony\Component\Config\Definition\Processor;
+
 class Codes implements \Iterator, \ArrayAccess, \Countable
 {
     protected $position;
-
-    protected $secretKey;
-    protected $length;
+    protected $setings;
 
     public function __construct($config)
     {
-        $this->secretKey = $config['secretKey'];
-        $this->length = isset($config['length']) ? $config['length'] : 1679616;
+        $processor = new Processor();
+        $this->settings = $processor->processConfiguration(
+            new CodesConfiguration,
+            array($config)
+        );
 
         $this->position = 0;
     }
 
-    public function getSecretKey()
+    public function __get($name)
     {
-        return $this->secretKey;
+        $snakeCased = $this->camelToSnake($name);
+
+        if (isset($this->settings[$snakeCased])) {
+            return $this->settings[$snakeCased];
+        }
+
+        $class = get_class($this);
+        trigger_error("Cannot access undefined property {$class}::\${$name}", E_USER_ERROR);
     }
 
-    public function getLength()
-    {
-        return $this->length;
+    protected function camelToSnake($val) {
+        return preg_replace_callback(
+            '/[A-Z]/',
+            create_function('$match', 'return "_" . strtolower($match[0]);'),
+            $val
+        );
     }
 
     public function current()
@@ -49,12 +63,12 @@ class Codes implements \Iterator, \ArrayAccess, \Countable
 
     public function valid()
     {
-        return $this->position < $this->getLength();
+        return $this->position < count($this);
     }
 
     public function offsetExists($offset)
     {
-        return is_int($offset) && $offset > -1 && $offset < $this->getLength();
+        return is_int($offset) && $offset > -1 && $offset < count($this);
     }
 
     public function offsetGet($offset)
@@ -74,7 +88,7 @@ class Codes implements \Iterator, \ArrayAccess, \Countable
 
     public function count()
     {
-        return $this->getLength();
+        return $this->length;
     }
 
     public function of($digit)
@@ -107,6 +121,6 @@ class Codes implements \Iterator, \ArrayAccess, \Countable
 
     protected function encrypt($index)
     {
-        return sha1($index.$this->getSecretKey());
+        return sha1($index.$this->secretKey);
     }
 }

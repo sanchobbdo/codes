@@ -4,12 +4,24 @@ namespace SanchoBBDO\Tests;
 
 class CodesTest extends \PHPUnit_Framework_TestCase
 {
+    protected $secretKey = '1461932c2e74b726c795742e1caa8b4a281ea09c';
+
     public function setUp()
     {
         $this->codes = new \SanchoBBDO\Codes(array(
-            'secretKey' => '1461932c2e74b726c795742e1caa8b4a281ea09c',
+            'secret_key' => $this->secretKey,
             'length' => 10
         ));
+    }
+
+    public function testCanAccessSettingsAsProperties()
+    {
+        $this->assertEquals(10, $this->codes->length);
+    }
+
+    public function testTransformsSettingsKeysFromSnakeCaseToCamelCase()
+    {
+        $this->assertEquals($this->secretKey, $this->codes->secretKey);
     }
 
     public function testAsIterator()
@@ -25,17 +37,17 @@ class CodesTest extends \PHPUnit_Framework_TestCase
             $this->fail("Didn't iterate");
         }
 
-        $this->assertEquals($this->codes->getLength() - 1, $key);
+        $this->assertEquals($this->codes->length - 1, $key);
     }
 
     public function testAsArrayAccess()
     {
-        for ($i = 0; $i < $this->codes->getLength(); $i++) {
+        for ($i = 0; $i < $this->codes->length; $i++) {
             $this->assertTrue(isset($this->codes[$i]));
             $this->assertEquals($this->codes->of($i), $this->codes[$i]);
         }
 
-        $this->assertFalse(isset($this->codes[$this->codes->getLength()]));
+        $this->assertFalse(isset($this->codes[$this->codes->length]));
     }
 
     public function testAsCountable()
@@ -46,12 +58,12 @@ class CodesTest extends \PHPUnit_Framework_TestCase
     public function testConstructorSetsConfig()
     {
         $codes = new \SanchoBBDO\Codes(array(
-            'secretKey' => 'some secret key',
+            'secret_key' => 'some secret key',
             'length' => 1000
         ));
 
-        $this->assertEquals('some secret key', $codes->getSecretKey());
-        $this->assertEquals(1000, $codes->getLength());
+        $this->assertEquals('some secret key', $codes->secretKey);
+        $this->assertEquals(1000, $codes->length);
     }
 
     /**
