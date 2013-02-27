@@ -23,6 +23,17 @@ class CodesConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Symfony\\Component\\Config\\Definition\\ConfigurationInterface', $this->config);
     }
 
+    public function testSecretKey()
+    {
+        try {
+            $this->process(array(
+                'secret_key' => 'fdsdfsdafsdfa'
+            ));
+        } catch (\Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
+
     /**
      * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
@@ -41,6 +52,18 @@ class CodesConfigurationTest extends \PHPUnit_Framework_TestCase
         ));
     }
 
+    public function testLength()
+    {
+        try {
+            $this->process(array(
+                'secret_key' => 'fdsdfsdafsdfa',
+                'length' => 12345
+            ));
+        } catch (\Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
+
     /**
      * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
@@ -49,6 +72,18 @@ class CodesConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->process(array(
             'secret_key' => 'adsadas',
             'length' => 'asfdsfsd'
+        ));
+    }
+
+
+    /**
+     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testLengthmustBePositive()
+    {
+        $this->process(array(
+            'secret_key' => 'adsadas',
+            'length' => -1
         ));
     }
 }
