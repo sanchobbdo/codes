@@ -2,7 +2,7 @@
 
 namespace SanchoBBDO;
 
-class Luniq implements \Iterator, \ArrayAccess
+class Luniq implements \Iterator, \ArrayAccess, \Countable
 {
     protected $position;
 
@@ -70,6 +70,11 @@ class Luniq implements \Iterator, \ArrayAccess
     public function offsetUnset($offset)
     {
         throw new \Exception("Can't unset luniq values.");
+    }
+
+    public function count()
+    {
+        return $this->getLength();
     }
 
     public function of($digit)

@@ -38,6 +38,11 @@ class LuniqTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(isset($this->luniq[$this->luniq->getLength()]));
     }
 
+    public function testAsCountable()
+    {
+        $this->assertEquals(10, count($this->luniq));
+    }
+
     public function testConstructorSetsConfig()
     {
         $luniq = new \SanchoBBDO\Luniq(array(
