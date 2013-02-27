@@ -15,6 +15,8 @@ class CodesDumper
 
     public function dump()
     {
+        $this->writer->open();
+
         foreach ($this->codesIterator as $code) {
             $this->writer->write($code);
         }

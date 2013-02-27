@@ -15,16 +15,30 @@ class CodesDumperTest extends \PHPUnit_Framework_TestCase
         ));
     }
 
-    public function testDumpsCodes()
+    public function testCallsWriterWriteMethod()
     {
         $writer = $this->getMock(
             '\\SanchoBBDO\\Codes\\DumpWriter\\DumpWriterInterface',
-            array('write')
+            array('open', 'write')
         );
 
         $writer->expects($this->exactly($this->codes->length))
                ->method('write')
                ->with($this->anything());
+
+        $dumper = new CodesDumper($this->codes, $writer);
+        $dumper->dump();
+    }
+
+    public function testCallsWriterOpenMethod()
+    {
+        $writer = $this->getMock(
+            '\\SanchoBBDO\\Codes\\DumpWriter\\DumpWriterInterface',
+            array('open', 'write')
+        );
+
+        $writer->expects($this->once())
+               ->method('open');
 
         $dumper = new CodesDumper($this->codes, $writer);
         $dumper->dump();
