@@ -34,33 +34,6 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand', $this->command);
     }
 
-    public function testSecretKeyOption()
-    {
-        try {
-            $option = $this->definition->getOption('secret-key');
-            $this->assertEquals('k', $option->getShortcut());
-            $this->assertTrue($option->isValueRequired());
-        } catch (\InvalidArgumentException $e) {
-            $this->fail("Option secret-key is not set");
-        }
-    }
-
-    public function testLengthOption()
-    {
-        try {
-            $option = $this->definition->getOption('length');
-            $this->assertEquals('l', $option->getShortcut());
-            $this->assertTrue($option->isValueRequired());
-        } catch (\InvalidArgumentException $e) {
-            $this->fail("Option length is not set");
-        }
-    }
-
-    public function testSecretKeyOptionIsRequired()
-    {
-        $this->assertRegExp('/secret-key/', $this->executeCommand());
-    }
-
     public function testPrintsLengthNumberOfCodes()
     {
         $codes = explode("\n", $this->executeCommand(array(
