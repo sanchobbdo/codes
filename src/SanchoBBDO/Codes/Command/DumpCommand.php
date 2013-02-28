@@ -4,14 +4,14 @@ namespace SanchoBBDO\Codes\Command;
 
 use SanchoBBDO\Codes\Codes;
 use SanchoBBDO\Codes\CodesDumper;
+use SanchoBBDO\Codes\Command\AbstractDumpCommand;
 use SanchoBBDO\Codes\DumpWriter\ConsoleDumpWriter;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class DumpCommand extends Command
+class DumpCommand extends AbstractDumpCommand
 {
     public function configure()
     {

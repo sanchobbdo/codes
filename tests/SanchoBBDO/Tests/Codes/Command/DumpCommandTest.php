@@ -29,6 +29,11 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
         $this->commandTester = new CommandTester($this->command);
     }
 
+    public function testExtendsAbstractDumpCommand()
+    {
+        $this->assertInstanceOf('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand', $this->command);
+    }
+
     public function testSecretKeyOption()
     {
         try {
