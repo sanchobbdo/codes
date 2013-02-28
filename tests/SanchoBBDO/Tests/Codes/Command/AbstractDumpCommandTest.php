@@ -32,6 +32,21 @@ class AbstractDumpCommandTest extends \PHPUnit_Framework_TestCase
         return $this->commandTester->getDisplay();
     }
 
+    protected function checkOption($name, $shortcut = null, $required = false)
+    {
+        try {
+            $option = $this->definition->getOption($name);
+            $this->assertEquals($shortcut, $option->getShortcut());
+            if ($required) {
+                $this->assertTrue($option->isValueRequired());
+            } else {
+                $this->assertFalse($option->isValueRequired());
+            }
+        } catch (\InvalidArgumentException $e) {
+            $this->fail("Option {$name} is not set");
+        }
+    }
+
     public function testSetsDumpAsNameIfActionIsNotDeclared()
     {
         $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\AbstractDumpCommand');
@@ -64,24 +79,12 @@ class AbstractDumpCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testSecretKeyOption()
     {
-        try {
-            $option = $this->definition->getOption('secret-key');
-            $this->assertEquals('k', $option->getShortcut());
-            $this->assertTrue($option->isValueRequired());
-        } catch (\InvalidArgumentException $e) {
-            $this->fail("Option secret-key is not set");
-        }
+        $this->checkOption('secret-key', 'k', true);
     }
 
     public function testLengthOption()
     {
-        try {
-            $option = $this->definition->getOption('length');
-            $this->assertEquals('l', $option->getShortcut());
-            $this->assertTrue($option->isValueRequired());
-        } catch (\InvalidArgumentException $e) {
-            $this->fail("Option length is not set");
-        }
+        $this->checkOption('length', 'l', true);
     }
 
     public function testSecretKeyOptionIsRequired()
