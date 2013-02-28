@@ -35,4 +35,9 @@ class DumpCommand extends AbstractDumpCommand
 
         $dumper->dump();
     }
+
+    public function getDumpWriter()
+    {
+        return new ConsoleDumpWriter();
+    }
 }

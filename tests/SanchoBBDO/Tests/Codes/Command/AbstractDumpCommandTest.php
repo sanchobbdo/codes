@@ -4,6 +4,7 @@ namespace SanchoBBDO\Tests\Codes\Command;
 
 use SanchoBBDO\Codes\Command\AbstractDumpCommand;
 use SanchoBBDO\Tests\Codes\Fixture\DumpCommandFixture;
+use SanchoBBDO\Tests\Codes\Fixture\DumpWriterFixture;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -90,5 +91,23 @@ class AbstractDumpCommandTest extends \PHPUnit_Framework_TestCase
     public function testSecretKeyOptionIsRequired()
     {
         $this->assertRegExp('/secret-key/', $this->executeCommand());
+    }
+
+    public function testCallsGetDumpWriterOnExecute()
+    {
+        $writer = new DumpWriterFixture;
+        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\AbstractDumpCommand');
+        $command->expects($this->once())
+                ->method('getDumpWriter')
+                ->will($this->returnValue($writer));
+
+        $application = new Application();
+        $application->add($command);
+        $commandTester = new CommandTester($application->find('dump'));
+        $commandTester->execute(array(
+            'command' => 'dump',
+            '--secret-key' => 'fum',
+            '--length' => 10
+        ));
     }
 }
