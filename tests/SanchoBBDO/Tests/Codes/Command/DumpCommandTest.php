@@ -33,8 +33,19 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
             $option = $this->definition->getOption('secret-key');
             $this->assertEquals('k', $option->getShortcut());
             $this->assertTrue($option->isValueRequired());
-        } catch (\Exception $e) {
+        } catch (\InvalidArgumentException $e) {
             $this->fail("Option secret-key is not set");
+        }
+    }
+
+    public function testLengthOption()
+    {
+        try {
+            $option = $this->definition->getOption('length');
+            $this->assertEquals('l', $option->getShortcut());
+            $this->assertTrue($option->isValueRequired());
+        } catch (\InvalidArgumentException $e) {
+            $this->fail("Option length is not set");
         }
     }
 }

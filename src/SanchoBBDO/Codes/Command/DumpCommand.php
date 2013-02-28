@@ -20,6 +20,12 @@ class DumpCommand extends Command
                 'k',
                 InputOption::VALUE_REQUIRED,
                 'Secret key to generate codes'
+            )
+            ->addOption(
+                'length',
+                'l',
+                InputOption::VALUE_REQUIRED,
+                'How many codes to generate'
             );
     }
 
