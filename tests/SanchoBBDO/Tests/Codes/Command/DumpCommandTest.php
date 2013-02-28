@@ -11,9 +11,11 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
     protected function executeCommand($params = array())
     {
         $this->commandTester->execute(array_merge(
-            array('command' => $command->getName()),
+            array('command' => $this->command->getName()),
             $params
         ));
+
+        return $this->commandTester->getDisplay();
     }
 
     public function setUp()
@@ -47,5 +49,10 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
         } catch (\InvalidArgumentException $e) {
             $this->fail("Option length is not set");
         }
+    }
+
+    public function testSecretKeyOptionIsRequired()
+    {
+        $this->assertRegExp('/secret-key/', $this->executeCommand());
     }
 }

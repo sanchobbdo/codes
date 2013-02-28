@@ -31,6 +31,9 @@ class DumpCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-
+        $secretKey = $input->getOption('secret-key');
+        if (!$secretKey) {
+            $output->writeln('<error>You must specify a --secret-key (-k)</error>');
+        }
     }
 }
