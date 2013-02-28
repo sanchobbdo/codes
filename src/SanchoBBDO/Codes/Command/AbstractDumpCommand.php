@@ -13,10 +13,33 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class AbstractDumpCommand extends Command
 {
+    protected $action;
+
+    public function setAction($action)
+    {
+        $this->action = $action;
+        $this->setNameFromAction();
+    }
+
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    private function setNameFromAction()
+    {
+        $action = $this->getAction();
+        $name = 'dump'.($action ? ":{$action}" : '');
+        $this->setName($name);
+    }
+
     public function configure()
     {
+        if (!$this->getName()) {
+            $this->setNameFromAction();
+        }
+
         $this
-            ->setName('dump')
             ->setDescription('Dumps codes to screen')
             ->addOption(
                 'secret-key',
