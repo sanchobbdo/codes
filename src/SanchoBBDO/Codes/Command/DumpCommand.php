@@ -13,25 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DumpCommand extends AbstractDumpCommand
 {
-    public function configure()
-    {
-        $this
-            ->setName('dump')
-            ->setDescription('Dumps codes to screen')
-            ->addOption(
-                'secret-key',
-                'k',
-                InputOption::VALUE_REQUIRED,
-                'Secret key to generate codes'
-            )
-            ->addOption(
-                'length',
-                'l',
-                InputOption::VALUE_REQUIRED,
-                'How many codes to generate'
-            );
-    }
-
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $secretKey = $input->getOption('secret-key');
