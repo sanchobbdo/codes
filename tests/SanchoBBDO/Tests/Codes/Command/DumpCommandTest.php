@@ -55,4 +55,14 @@ class DumpCommandTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertRegExp('/secret-key/', $this->executeCommand());
     }
+
+    public function testPrintsLengthNumberOfCodes()
+    {
+        $codes = explode("\n", $this->executeCommand(array(
+            '--secret-key' => 'gdfggsdfhgfgdsaggfhf',
+            '--length' => '10'
+        )));
+
+        $this->assertCount(11, $codes);
+    }
 }
