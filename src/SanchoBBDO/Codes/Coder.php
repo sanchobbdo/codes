@@ -20,30 +20,29 @@ class Coder
 
     public function encode($digit)
     {
-        $index = Utils::base36Encode($digit);
-        $index = Utils::zerofill($index, 4);
-        return $this->generateFor($index);
+        $key = Utils::base36Encode($digit);
+        $key = Utils::zerofill($key, 4);
+
+        return $key.substr($this->encrypt($key), 0, 6);
     }
 
     public function isValid($code)
     {
-        $index = $this->parseIndex($code);
-        return $this->generateFor($index) == $code;
+        list($digit, $mac) = $this->parse($code);
+        return $this->encode($digit) == $code;
     }
 
-    protected function parseIndex($code)
+    public function parse($code)
     {
-        return substr($code, 0, 4);
+        return array(
+            Utils::base36Decode(substr($code, 0, 4)),
+            substr($code, 4)
+        );
     }
 
-    protected function generateFor($index)
+    protected function encrypt($key)
     {
-        return $index.substr($this->encrypt($index), 0, 6);
-    }
-
-    protected function encrypt($index)
-    {
-        return sha1($index.$this->secretKey);
+        return sha1($key.$this->secretKey);
     }
 
     public function __get($name)

@@ -37,15 +37,21 @@ class CoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1000, $coder->length);
     }
 
-    /**
-     * @dataProvider encodeReturnsCodeForIndex
-     */
-    public function testEncodeReturnsCodeForIndex($index, $code)
+    public function testParseReturnsCodesDigitAndMac()
     {
-        $this->assertEquals($code, $this->coder->encode($index));
+        list($digit, $mac) = $this->coder->parse('0001abcdef');
+        $this->assertEquals(1, $digit);
+        $this->assertEquals('abcdef', $mac);
+    }
+    /**
+     * @dataProvider digitsAndCodesProvider
+     */
+    public function testEncode($digit, $code)
+    {
+        $this->assertEquals($code, $this->coder->encode($digit));
     }
 
-    public function encodeReturnsCodeForIndex()
+    public function digitsAndCodesProvider()
     {
         return array(
             array(123456, '2n9c00d7a3'),
@@ -56,14 +62,14 @@ class CoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider isValidVerifiesCodesProvider
+     * @dataProvider codesAndValidityProvider
      */
-    public function testIsValidVerifiesCodes($code, $assert)
+    public function testIsValid($code, $assert)
     {
         $this->assertEquals($assert, $this->coder->isValid($code));
     }
 
-    public function  isValidVerifiesCodesProvider()
+    public function codesAndValidityProvider()
     {
         return array(
             array('002s80e8d8', true),
