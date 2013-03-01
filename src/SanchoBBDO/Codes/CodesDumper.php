@@ -7,9 +7,9 @@ class CodesDumper
     protected $codes;
     protected $writer;
 
-    public function __construct(Coder $coder, DumpWriter\DumpWriterInterface $writer)
+    public function __construct(Codes $codes, DumpWriter\DumpWriterInterface $writer)
     {
-        $this->codes= new Codes($coder);
+        $this->codes = $codes;
         $this->writer = $writer;
     }
 

@@ -3,6 +3,7 @@
 namespace SanchoBBDO\Codes\Command;
 
 use SanchoBBDO\Codes\Coder;
+use SanchoBBDO\Codes\Codes;
 use SanchoBBDO\Codes\CodesDumper;
 use SanchoBBDO\Codes\DumpWriter\ConsoleDumpWriter;
 use Symfony\Component\Console\Command\Command;
@@ -78,8 +79,9 @@ abstract class AbstractDumpCommand extends Command
         }
 
         $coder = new Coder($config);
+        $codes = new Codes($coder);
         $dumpWriter = $this->getDumpWriter();
-        $dumper = new CodesDumper($coder, $dumpWriter);
+        $dumper = new CodesDumper($codes, $dumpWriter);
         $dumper->dump();
     }
 
