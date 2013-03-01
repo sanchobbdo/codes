@@ -4,7 +4,6 @@ namespace SanchoBBDO\Tests\Codes\Command;
 
 use SanchoBBDO\Codes\Command\AbstractDumpCommand;
 use SanchoBBDO\Tests\Codes\Fixture\DumpCommandFixture;
-use SanchoBBDO\Tests\Codes\Fixture\DumpWriterFixture;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -12,14 +11,17 @@ class AbstractDumpCommandTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $application = new Application();
+        $this->writer = $this->getMock('\\SanchoBBDO\\Codes\\DumpWriter\\DumpWriterInterface');
+        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand');
+        $command
+            ->expects($this->any())
+            ->method('getDumpWriter')
+            ->will($this->returnValue($this->writer));
 
-        $command = new DumpCommandFixture;
+        $application = new Application();
         $application->add($command);
 
         $this->command = $application->find($command->getName());
-        $this->definition = $this->command->getDefinition();
-
         $this->commandTester = new CommandTester($this->command);
     }
 
@@ -33,59 +35,50 @@ class AbstractDumpCommandTest extends \PHPUnit_Framework_TestCase
         return $this->commandTester->getDisplay();
     }
 
-    protected function checkOption($name, $shortcut = null, $required = false)
+    protected function executeDefaultCommnad()
     {
-        try {
-            $option = $this->definition->getOption($name);
-            $this->assertEquals($shortcut, $option->getShortcut());
-            if ($required) {
-                $this->assertTrue($option->isValueRequired());
-            } else {
-                $this->assertFalse($option->isValueRequired());
-            }
-        } catch (\InvalidArgumentException $e) {
-            $this->fail("Option {$name} is not set");
-        }
+        return $this->executeCommand(array(
+            '--secret-key' => 'yamyam',
+            '--length' => 10
+        ));
+    }
+
+    protected function assertInputOption($name, $shortcut, $acceptsValue, $requiredValue)
+    {
+        $definition = $this->command->getDefinition();
+        $this->assertTrue($definition->hasOption($name));
+
+        $option = $definition->getOption($name);
+        $this->assertEquals($shortcut,      $option->getShortcut());
+        $this->assertEquals($acceptsValue,  $option->acceptValue());
+        $this->assertEquals($requiredValue, $option->isValueRequired());
     }
 
     public function testSetsDumpAsNameIfActionIsNotDeclared()
     {
-        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\AbstractDumpCommand');
-        $this->assertEquals('dump', $command->getName());
+        $this->assertEquals('dump', $this->command->getName());
     }
 
     public function testSetNameAsDumpSemicolonActionIFActionIsDeclared()
     {
-        $this->assertEquals('dump:test', $this->command->getName());
+        $command = new DumpCommandFixture;
+        $this->assertEquals('dump:test', $command->getName());
     }
 
-    /**
-     * @dataProvider actionsProvider
-     */
-    public function testSetActionSetName($action)
+    public function testSetActionSetName()
     {
-        $this->command->setAction($action);
-        $this->assertEquals("dump:{$action}", $this->command->getName());
-    }
-
-    public function actionsProvider()
-    {
-        return array(
-            array('foo'),
-            array('bar'),
-            array('pum'),
-            array('pam')
-        );
+        $this->command->setAction('my-action');
+        $this->assertEquals("dump:my-action", $this->command->getName());
     }
 
     public function testSecretKeyOption()
     {
-        $this->checkOption('secret-key', 'k', true);
+        $this->assertInputOption('secret-key', 'k', true, true);
     }
 
     public function testLengthOption()
     {
-        $this->checkOption('length', 'l', true);
+        $this->assertInputOption('length', 'l', true, true);
     }
 
     public function testSecretKeyOptionIsRequired()
@@ -95,57 +88,34 @@ class AbstractDumpCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testCallsGetDumpWriterOnExecute()
     {
-        $writer = new DumpWriterFixture;
-        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand');
-        $command->expects($this->once())
+        $this->command
+                ->expects($this->once())
                 ->method('getDumpWriter')
-                ->will($this->returnValue($writer));
-
-        $application = new Application();
-        $application->add($command);
-        $commandTester = new CommandTester($application->find('dump'));
-        $commandTester->execute(array(
-            'command' => 'dump',
-            '--secret-key' => 'fum',
-            '--length' => 10
-        ));
+                ->will($this->returnValue($this->writer));
+        $this->executeDefaultCommnad();
     }
 
     public function testCalssDumpWriterMethodsOnExecute()
     {
-        $writer = $this->getMock(
-            '\\SanchoBBDO\\Tests\Codes\\Fixture\\DumpWriterFixture',
-            array('open', 'write', 'close')
-        );
+        $this->writer
+                ->expects($this->once())
+                ->method('open');
 
-        $writer->expects($this->once())
-               ->method('open');
+        $this->writer
+                ->expects($this->exactly(10))
+                ->method('write')
+                ->with($this->anything());
 
-        $writer->expects($this->exactly(10))
-               ->method('write')
-               ->with($this->anything());
+        $this->writer
+                ->expects($this->once())
+                ->method('close');
 
-        $writer->expects($this->once())
-               ->method('close');
-
-        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand');
-        $command->expects($this->once())
-                ->method('getDumpWriter')
-                ->will($this->returnValue($writer));
-
-        $application = new Application();
-        $application->add($command);
-        $commandTester = new CommandTester($application->find('dump'));
-        $commandTester->execute(array(
-            'command' => 'dump',
-            '--secret-key' => 'fum',
-            '--length' => 10
-        ));
+        $this->executeDefaultCommnad();
     }
 
     public function testGetInputReturnsCommandInput()
     {
-        $this->executeCommand(array('--secret-key' => 'fum', '--length' => 10));
+        $this->executeDefaultCommnad();
         $this->assertInstanceOf(
             'Symfony\\Component\\Console\\Input\\InputInterface',
             $this->command->getInput()
@@ -154,7 +124,7 @@ class AbstractDumpCommandTest extends \PHPUnit_Framework_TestCase
 
     public function testGetOutputReturnsCommandOutput()
     {
-        $this->executeCommand(array('--secret-key' => 'fum', '--length' => 10));
+        $this->executeDefaultCommnad();
         $this->assertInstanceOf(
             'Symfony\\Component\\Console\\Output\\OutputInterface',
             $this->command->getOutput()
