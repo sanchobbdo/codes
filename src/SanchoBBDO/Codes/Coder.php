@@ -18,18 +18,6 @@ class Coder
         );
     }
 
-    public function __get($name)
-    {
-        $snakeCased = Utils::camelToSnake($name);
-
-        if (isset($this->settings[$snakeCased])) {
-            return $this->settings[$snakeCased];
-        }
-
-        $class = get_class($this);
-        trigger_error("Cannot access undefined property {$class}::\${$name}", E_USER_ERROR);
-    }
-
     public function of($digit)
     {
         $index = Utils::base36Encode($digit);
@@ -56,5 +44,17 @@ class Coder
     protected function encrypt($index)
     {
         return sha1($index.$this->secretKey);
+    }
+
+    public function __get($name)
+    {
+        $snakeCased = Utils::camelToSnake($name);
+
+        if (isset($this->settings[$snakeCased])) {
+            return $this->settings[$snakeCased];
+        }
+
+        $class = get_class($this);
+        trigger_error("Cannot access undefined property {$class}::\${$name}", E_USER_ERROR);
     }
 }
