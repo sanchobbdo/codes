@@ -4,12 +4,10 @@ namespace SanchoBBDO\Tests\Codes\Command;
 
 use SanchoBBDO\Codes\Command\AbstractDumpCommand;
 use SanchoBBDO\Tests\Codes\Fixture\DumpCommandFixture;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Tester\CommandTester;
 
 class AbstractDumpCommandTest extends CommandTestCase
 {
-    public function setUp()
+    protected function createCommand()
     {
         $this->writer = $this->getMock('\\SanchoBBDO\\Codes\\DumpWriter\\DumpWriterInterface');
         $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand');
@@ -18,40 +16,7 @@ class AbstractDumpCommandTest extends CommandTestCase
             ->method('getDumpWriter')
             ->will($this->returnValue($this->writer));
 
-        $application = new Application();
-        $application->add($command);
-
-        $this->command = $application->find($command->getName());
-        $this->commandTester = new CommandTester($this->command);
-    }
-
-    protected function executeCommand($params = array())
-    {
-        $this->commandTester->execute(array_merge(
-            array('command' => $this->command->getName()),
-            $params
-        ));
-
-        return $this->commandTester->getDisplay();
-    }
-
-    protected function executeDefaultCommnad()
-    {
-        return $this->executeCommand(array(
-            '--secret-key' => 'yamyam',
-            '--length' => 10
-        ));
-    }
-
-    protected function assertInputOption($name, $shortcut, $acceptsValue, $requiredValue)
-    {
-        $definition = $this->command->getDefinition();
-        $this->assertTrue($definition->hasOption($name));
-
-        $option = $definition->getOption($name);
-        $this->assertEquals($shortcut,      $option->getShortcut());
-        $this->assertEquals($acceptsValue,  $option->acceptValue());
-        $this->assertEquals($requiredValue, $option->isValueRequired());
+        return $command;
     }
 
     public function testSetsDumpAsNameIfActionIsNotDeclared()
