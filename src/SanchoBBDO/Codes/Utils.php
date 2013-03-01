@@ -18,6 +18,11 @@ class Utils
         return base_convert($digit, 10, 36);
     }
 
+    static public function base36Decode($base36)
+    {
+        return base_convert($base36, 36, 10);
+    }
+
     static public function zerofill($str, $length)
     {
         return str_pad($str, $length, '0', STR_PAD_LEFT);
