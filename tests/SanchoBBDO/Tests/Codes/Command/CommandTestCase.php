@@ -51,4 +51,13 @@ class CommandTestCase extends \PHPUnit_Framework_TestCase
         $this->assertEquals($acceptsValue,  $option->acceptValue());
         $this->assertEquals($requiredValue, $option->isValueRequired());
     }
+
+    protected function assertInputArgument($name, $isRequired)
+    {
+        $definition = $this->command->getDefinition();
+        $this->assertTrue($definition->hasArgument($name));
+
+        $argument = $definition->getArgument($name);
+        $this->assertEquals($isRequired, $argument->isRequired());
+    }
 }
