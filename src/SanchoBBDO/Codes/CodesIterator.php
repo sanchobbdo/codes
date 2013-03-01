@@ -15,7 +15,7 @@ class CodesIterator implements \Iterator
 
     public function current()
     {
-        return $this->coder->of($this->position);
+        return $this->coder->encode($this->position);
     }
 
     public function rewind()

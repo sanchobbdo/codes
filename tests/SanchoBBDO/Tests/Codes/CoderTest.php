@@ -38,14 +38,14 @@ class CoderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider ofReturnsCodeForIndex
+     * @dataProvider encodeReturnsCodeForIndex
      */
-    public function testOfReturnsCodeForIndex($index, $code)
+    public function testEncodeReturnsCodeForIndex($index, $code)
     {
-        $this->assertEquals($code, $this->coder->of($index));
+        $this->assertEquals($code, $this->coder->encode($index));
     }
 
-    public function ofReturnsCodeForIndex()
+    public function encodeReturnsCodeForIndex()
     {
         return array(
             array(123456, '2n9c00d7a3'),

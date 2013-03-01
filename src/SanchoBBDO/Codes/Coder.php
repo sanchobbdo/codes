@@ -18,7 +18,7 @@ class Coder
         );
     }
 
-    public function of($digit)
+    public function encode($digit)
     {
         $index = Utils::base36Encode($digit);
         $index = Utils::zerofill($index, 4);

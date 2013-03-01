@@ -22,7 +22,7 @@ class CodesIteratorTest extends \PHPUnit_Framework_TestCase
         $i = 0;
         foreach ($this->iterator as $key => $value) {
             $this->assertEquals($i, $key);
-            $this->assertEquals($this->coder->of($i), $value);
+            $this->assertEquals($this->coder->encode($i), $value);
             $i++;
         }
 
