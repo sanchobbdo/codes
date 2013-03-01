@@ -96,7 +96,39 @@ class AbstractDumpCommandTest extends \PHPUnit_Framework_TestCase
     public function testCallsGetDumpWriterOnExecute()
     {
         $writer = new DumpWriterFixture;
-        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\AbstractDumpCommand');
+        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand');
+        $command->expects($this->once())
+                ->method('getDumpWriter')
+                ->will($this->returnValue($writer));
+
+        $application = new Application();
+        $application->add($command);
+        $commandTester = new CommandTester($application->find('dump'));
+        $commandTester->execute(array(
+            'command' => 'dump',
+            '--secret-key' => 'fum',
+            '--length' => 10
+        ));
+    }
+
+    public function testCalssDumpWriterMethodsOnExecute()
+    {
+        $writer = $this->getMock(
+            '\\SanchoBBDO\\Tests\Codes\\Fixture\\DumpWriterFixture',
+            array('open', 'write', 'close')
+        );
+
+        $writer->expects($this->once())
+               ->method('open');
+
+        $writer->expects($this->exactly(10))
+               ->method('write')
+               ->with($this->anything());
+
+        $writer->expects($this->once())
+               ->method('close');
+
+        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand');
         $command->expects($this->once())
                 ->method('getDumpWriter')
                 ->will($this->returnValue($writer));
