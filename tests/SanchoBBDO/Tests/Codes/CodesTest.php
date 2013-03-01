@@ -3,9 +3,9 @@
 namespace SanchoBBDO\Tests\Codes;
 
 use SanchoBBDO\Codes\Coder;
-use SanchoBBDO\Codes\CodesIterator;
+use SanchoBBDO\Codes\Codes;
 
-class CodesIteratorTest extends \PHPUnit_Framework_TestCase
+class CodesTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -14,13 +14,13 @@ class CodesIteratorTest extends \PHPUnit_Framework_TestCase
             'length' => 10
         ));
 
-        $this->iterator = new CodesIterator($this->coder);
+        $this->codes = new Codes($this->coder);
     }
 
     public function testIterator()
     {
         $i = 0;
-        foreach ($this->iterator as $key => $value) {
+        foreach ($this->codes as $key => $value) {
             $this->assertEquals($i, $key);
             $this->assertEquals($this->coder->encode($i), $value);
             $i++;

@@ -2,7 +2,7 @@
 
 namespace SanchoBBDO\Codes;
 
-class CodesIterator implements \Iterator
+class Codes implements \Iterator
 {
     protected $coder;
     protected $position;

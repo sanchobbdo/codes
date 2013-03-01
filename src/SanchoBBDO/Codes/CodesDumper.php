@@ -4,12 +4,12 @@ namespace SanchoBBDO\Codes;
 
 class CodesDumper
 {
-    protected $codesIterator;
+    protected $codes;
     protected $writer;
 
     public function __construct(Coder $coder, DumpWriter\DumpWriterInterface $writer)
     {
-        $this->codesIterator = new CodesIterator($coder);
+        $this->codes= new Codes($coder);
         $this->writer = $writer;
     }
 
@@ -17,7 +17,7 @@ class CodesDumper
     {
         $this->writer->open();
 
-        foreach ($this->codesIterator as $code) {
+        foreach ($this->codes as $code) {
             $this->writer->write($code);
         }
 
