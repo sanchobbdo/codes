@@ -2,15 +2,15 @@
 
 namespace SanchoBBDO\Tests;
 
-use SanchoBBDO\Codes\Codes;
+use SanchoBBDO\Codes\Coder;
 
-class CodesTest extends \PHPUnit_Framework_TestCase
+class CoderTest extends \PHPUnit_Framework_TestCase
 {
     protected $secretKey = '1461932c2e74b726c795742e1caa8b4a281ea09c';
 
     public function setUp()
     {
-        $this->codes = new Codes(array(
+        $this->coder = new Coder(array(
             'secret_key' => $this->secretKey,
             'length' => 10
         ));
@@ -18,23 +18,23 @@ class CodesTest extends \PHPUnit_Framework_TestCase
 
     public function testCanAccessSettingsAsProperties()
     {
-        $this->assertEquals(10, $this->codes->length);
+        $this->assertEquals(10, $this->coder->length);
     }
 
     public function testTransformsSettingsKeysFromSnakeCaseToCamelCase()
     {
-        $this->assertEquals($this->secretKey, $this->codes->secretKey);
+        $this->assertEquals($this->secretKey, $this->coder->secretKey);
     }
 
     public function testConstructorSetsConfig()
     {
-        $codes = new Codes(array(
+        $coder = new Coder(array(
             'secret_key' => 'some secret key',
             'length' => 1000
         ));
 
-        $this->assertEquals('some secret key', $codes->secretKey);
-        $this->assertEquals(1000, $codes->length);
+        $this->assertEquals('some secret key', $coder->secretKey);
+        $this->assertEquals(1000, $coder->length);
     }
 
     /**
@@ -42,7 +42,7 @@ class CodesTest extends \PHPUnit_Framework_TestCase
      */
     public function testOfReturnsCodeForIndex($index, $code)
     {
-        $this->assertEquals($code, $this->codes->of($index));
+        $this->assertEquals($code, $this->coder->of($index));
     }
 
     public function ofReturnsCodeForIndex()
@@ -60,7 +60,7 @@ class CodesTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsValidVerifiesCodes($code, $assert)
     {
-        $this->assertEquals($assert, $this->codes->isValid($code));
+        $this->assertEquals($assert, $this->coder->isValid($code));
     }
 
     public function  isValidVerifiesCodesProvider()

@@ -5,7 +5,7 @@ namespace SanchoBBDO\Codes;
 use SanchoBBDO\Codes\CodesConfiguration;
 use Symfony\Component\Config\Definition\Processor;
 
-class Codes
+class Coder
 {
     protected $setings;
 

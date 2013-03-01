@@ -7,9 +7,9 @@ class CodesDumper
     protected $codesIterator;
     protected $writer;
 
-    public function __construct(Codes $codes, DumpWriter\DumpWriterInterface $writer)
+    public function __construct(Coder $coder, DumpWriter\DumpWriterInterface $writer)
     {
-        $this->codesIterator = new CodesIterator($codes);
+        $this->codesIterator = new CodesIterator($coder);
         $this->writer = $writer;
     }
 

@@ -2,22 +2,20 @@
 
 namespace SanchoBBDO\Codes;
 
-use SanchoBBDO\Codes\Codes;
-
 class CodesIterator implements \Iterator
 {
-    protected $codes;
+    protected $coder;
     protected $position;
 
-    public function __construct(Codes $codes)
+    public function __construct(Coder $coder)
     {
-        $this->codes = $codes;
+        $this->coder = $coder;
         $this->position = 0;
     }
 
     public function current()
     {
-        return $this->codes->of($this->position);
+        return $this->coder->of($this->position);
     }
 
     public function rewind()
@@ -37,6 +35,6 @@ class CodesIterator implements \Iterator
 
     public function valid()
     {
-        return $this->position < $this->codes->length;
+        return $this->position < $this->coder->length;
     }
 }

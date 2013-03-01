@@ -2,14 +2,14 @@
 
 namespace SanchoBBDO\Tests\Codes;
 
-use \SanchoBBDO\Codes\Codes;
+use \SanchoBBDO\Codes\Coder;
 use \SanchoBBDO\Codes\CodesDumper;
 
 class CodesDumperTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->codes = new Codes(array(
+        $this->coder = new Coder(array(
             'secret_key' => 'bombastic',
             'length' => 10
         ));
@@ -19,12 +19,12 @@ class CodesDumperTest extends \PHPUnit_Framework_TestCase
             array('open', 'write', 'close')
         );
 
-        $this->dumper = new CodesDumper($this->codes, $this->writer);
+        $this->dumper = new CodesDumper($this->coder, $this->writer);
     }
 
     public function testCallsWriterWriteMethod()
     {
-        $this->writer->expects($this->exactly($this->codes->length))
+        $this->writer->expects($this->exactly($this->coder->length))
                      ->method('write')
                      ->with($this->anything());
 
