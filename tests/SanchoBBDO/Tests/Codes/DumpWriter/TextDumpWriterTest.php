@@ -17,16 +17,12 @@ class TextDumpWriterTest extends \PHPUnit_Framework_TestCase
         $this->writer = new TextDumpWriter($this->filePath);
     }
 
-    public function tearDown()
-    {
-        $this->writer->close();
-    }
-
     public function testOpenCreatesFile()
     {
         $this->assertFalse($this->root->hasChild($this->file));
         $this->writer->open();
         $this->assertTrue($this->root->hasChild($this->file));
+        $this->writer->close();
     }
 
     public function testWritesToFile()
@@ -36,5 +32,16 @@ class TextDumpWriterTest extends \PHPUnit_Framework_TestCase
         $this->writer->write('señor');
 
         $this->assertEquals("Hola\nseñor\n", file_get_contents($this->filePath));
+        $this->writer->close();
+    }
+
+    public function testGetFileReturnsFile()
+    {
+        $this->assertEquals($this->filePath, $this->writer->getFile());
+    }
+
+    public function testSetFile() {
+        $this->writer->setFile('other.txt');
+        $this->assertEquals('other.txt', $this->writer->getFile());
     }
 }

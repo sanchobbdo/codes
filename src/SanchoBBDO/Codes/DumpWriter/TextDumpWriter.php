@@ -24,4 +24,14 @@ class TextDumpWriter implements DumpWriterInterface
     public function close() {
         fclose($this->handle);
     }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
 }
