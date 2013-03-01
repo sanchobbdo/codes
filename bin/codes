@@ -9,5 +9,6 @@ use Symfony\Component\Console\Application;
 $application = new Application();
 
 $application->add(new Commands\DumpCommand);
+$application->add(new Commands\DumpTextCommand);
 
 $application->run();
