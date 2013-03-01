@@ -20,7 +20,7 @@ class Codes
 
     public function __get($name)
     {
-        $snakeCased = $this->camelToSnake($name);
+        $snakeCased = Utils::camelToSnake($name);
 
         if (isset($this->settings[$snakeCased])) {
             return $this->settings[$snakeCased];
@@ -28,14 +28,6 @@ class Codes
 
         $class = get_class($this);
         trigger_error("Cannot access undefined property {$class}::\${$name}", E_USER_ERROR);
-    }
-
-    protected function camelToSnake($val) {
-        return preg_replace_callback(
-            '/[A-Z]/',
-            create_function('$match', 'return "_" . strtolower($match[0]);'),
-            $val
-        );
     }
 
     public function of($digit)
