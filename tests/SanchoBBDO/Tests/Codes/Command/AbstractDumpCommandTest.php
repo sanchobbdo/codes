@@ -7,7 +7,7 @@ use SanchoBBDO\Tests\Codes\Fixture\DumpCommandFixture;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class AbstractDumpCommandTest extends \PHPUnit_Framework_TestCase
+class AbstractDumpCommandTest extends CommandTestCase
 {
     public function setUp()
     {
