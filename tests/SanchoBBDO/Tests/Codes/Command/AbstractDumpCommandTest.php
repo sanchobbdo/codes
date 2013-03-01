@@ -151,4 +151,13 @@ class AbstractDumpCommandTest extends \PHPUnit_Framework_TestCase
             $this->command->getInput()
         );
     }
+
+    public function testGetOutputReturnsCommandOutput()
+    {
+        $this->executeCommand(array('--secret-key' => 'fum', '--length' => 10));
+        $this->assertInstanceOf(
+            'Symfony\\Component\\Console\\Output\\OutputInterface',
+            $this->command->getOutput()
+        );
+    }
 }

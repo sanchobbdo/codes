@@ -17,6 +17,7 @@ abstract class AbstractDumpCommand extends Command
     private $codeSettings;
     private $codes;
     private $input;
+    private $output;
 
     public function setAction($action)
     {
@@ -61,6 +62,7 @@ abstract class AbstractDumpCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->input = $input;
+        $this->output = $output;
 
         $secretKey = $input->getOption('secret-key');
 
@@ -84,6 +86,11 @@ abstract class AbstractDumpCommand extends Command
     public function getInput()
     {
         return $this->input;
+    }
+
+    public function getOutput()
+    {
+        return $this->output;
     }
 
     abstract public function getDumpWriter();
