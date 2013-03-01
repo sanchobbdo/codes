@@ -7,15 +7,15 @@ class Codes implements \Iterator
     protected $coder;
     protected $position;
 
-    public function __construct(Coder $coder)
+    public function __construct($coder)
     {
-        $this->coder = $coder;
+        $this->setCoder($coder);
         $this->position = 0;
     }
 
     public function current()
     {
-        return $this->coder->encode($this->position);
+        return $this->getCoder()->encode($this->position);
     }
 
     public function rewind()
@@ -35,6 +35,16 @@ class Codes implements \Iterator
 
     public function valid()
     {
-        return $this->position < $this->coder->length;
+        return $this->position < $this->getCoder()->length;
+    }
+
+    public function getCoder()
+    {
+        return $this->coder;
+    }
+
+    public function setCoder(Coder $coder)
+    {
+        $this->coder = $coder;
     }
 }
