@@ -15,4 +15,9 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('a', Utils::base36Encode(10));
     }
+
+    public function testZerofill()
+    {
+        $this->assertEquals('0000000001', Utils::zerofill(1, 10));
+    }
 }
