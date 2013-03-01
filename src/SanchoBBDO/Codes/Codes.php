@@ -32,7 +32,8 @@ class Codes
 
     public function of($digit)
     {
-        $index = $this->base36($digit, 4);
+        $index = Utils::base36Encode($digit);
+        $index = Utils::zerofill($index, 4);
         return $this->generateFor($index);
     }
 
@@ -45,12 +46,6 @@ class Codes
     protected function parseIndex($code)
     {
         return substr($code, 0, 4);
-    }
-
-    protected function base36($digit, $zerofill = 0)
-    {
-        $base36 = base_convert($digit, 10, 36);
-        return str_pad($base36, $zerofill, '0', STR_PAD_LEFT);
     }
 
     protected function generateFor($index)
