@@ -16,6 +16,7 @@ abstract class AbstractDumpCommand extends Command
     protected $action;
     private $codeSettings;
     private $codes;
+    private $input;
 
     public function setAction($action)
     {
@@ -59,6 +60,8 @@ abstract class AbstractDumpCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->input = $input;
+
         $secretKey = $input->getOption('secret-key');
 
         if (!$secretKey) {
@@ -76,6 +79,11 @@ abstract class AbstractDumpCommand extends Command
         $dumpWriter = $this->getDumpWriter();
         $dumper = new CodesDumper($codes, $dumpWriter);
         $dumper->dump();
+    }
+
+    public function getInput()
+    {
+        return $this->input;
     }
 
     abstract public function getDumpWriter();
