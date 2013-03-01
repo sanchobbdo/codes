@@ -12,4 +12,9 @@ class Utils
             $camel
         );
     }
+
+    static public function base36Encode($digit)
+    {
+        return base_convert($digit, 10, 36);
+    }
 }
