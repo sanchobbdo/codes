@@ -8,39 +8,28 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class DumpCommandTest extends \PHPUnit_Framework_TestCase
 {
-    protected function executeCommand($params = array())
-    {
-        $this->commandTester->execute(array_merge(
-            array('command' => $this->command->getName()),
-            $params
-        ));
-
-        return $this->commandTester->getDisplay();
-    }
-
     public function setUp()
     {
+        $command = new DumpCommand;
+
         $application = new Application();
-        $application->add(new DumpCommand);
+        $application->add($command);
 
         $this->command = $application->find('dump');
-        $this->definition = $this->command->getDefinition();
-
         $this->commandTester = new CommandTester($this->command);
     }
 
-    public function testExtendsAbstractDumpCommand()
+    public function testGetDumpWriterReturnsAConsoleDumpWriter()
     {
-        $this->assertInstanceOf('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand', $this->command);
-    }
+        $this->commandTester->execute(array(
+            'command' => 'dump',
+            '--secret-key' => 'dsfdsfsad',
+            '--length' => 10
+        ));
 
-    public function testPrintsLengthNumberOfCodes()
-    {
-        $codes = explode("\n", $this->executeCommand(array(
-            '--secret-key' => 'gdfggsdfhgfgdsaggfhf',
-            '--length' => '10'
-        )));
-
-        $this->assertCount(11, $codes);
+        $this->assertInstanceOf(
+            '\\SanchoBBDO\\Codes\\DumpWriter\\ConsoleDumpWriter',
+            $this->command->getDumpWriter()
+        );
     }
 }
