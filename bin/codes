@@ -3,9 +3,11 @@
 
 require_once 'vendor/autoload.php';
 
-use SanchoBBDO\Luniq\Command\Dump\DumpDbCommand;
+use SanchoBBDO\Codes\Command as Commands;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
-$application->add(new DumpDbCommand);
+
+$application->add(new Commands\DumpCommand);
+
 $application->run();
