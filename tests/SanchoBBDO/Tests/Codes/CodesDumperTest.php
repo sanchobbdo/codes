@@ -6,17 +6,11 @@ use \SanchoBBDO\Codes\Coder;
 use \SanchoBBDO\Codes\Codes;
 use \SanchoBBDO\Codes\CodesDumper;
 
-class CodesDumperTest extends \PHPUnit_Framework_TestCase
+class CodesDumperTest extends CodesTestCase
 {
     public function setUp()
     {
-        $this->coder = new Coder(array(
-            'secret_key' => 'bombastic',
-            'length' => 10
-        ));
-
-        $this->codes = new Codes($this->coder);
-
+        parent::setUp();
         $this->writer = $this->getMock(
             '\\SanchoBBDO\\Codes\\DumpWriter\\DumpWriterInterface',
             array('open', 'write', 'close')
