@@ -4,13 +4,16 @@ namespace SanchoBBDO\Codes;
 
 class Codes implements \Iterator
 {
-    protected $coder;
+    private $coder;
+    private $offset;
+
     protected $position;
 
-    public function __construct($coder)
+    public function __construct($coder, $offset = 0)
     {
         $this->setCoder($coder);
-        $this->position = 0;
+        $this->setOffset($offset);
+        $this->rewind();
     }
 
     public function current()
@@ -20,7 +23,7 @@ class Codes implements \Iterator
 
     public function rewind()
     {
-        $this->position = 0;
+        $this->position = $this->getOffset();
     }
 
     public function next()
@@ -46,5 +49,15 @@ class Codes implements \Iterator
     public function setCoder(Coder $coder)
     {
         $this->coder = $coder;
+    }
+
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    public function setOffset($offset)
+    {
+        $this->offset = $offset;
     }
 }
