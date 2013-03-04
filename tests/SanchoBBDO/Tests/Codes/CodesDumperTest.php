@@ -21,7 +21,7 @@ class CodesDumperTest extends CodesTestCase
 
     public function testCallsWriterWriteMethod()
     {
-        $this->writer->expects($this->exactly($this->coder->length))
+        $this->writer->expects($this->exactly($this->codes->getLimit()))
                      ->method('write')
                      ->with($this->anything());
 

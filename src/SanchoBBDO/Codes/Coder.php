@@ -7,15 +7,11 @@ use Symfony\Component\Config\Definition\Processor;
 
 class Coder
 {
-    protected $setings;
+    private $secretKey;
 
-    public function __construct($config)
+    public function __construct($secretKey)
     {
-        $processor = new Processor();
-        $this->settings = $processor->processConfiguration(
-            new CodesConfiguration,
-            array($config)
-        );
+        $this->setSecretKey($secretKey);
     }
 
     public function encode($digit)
@@ -45,15 +41,12 @@ class Coder
         return sha1($key.$this->secretKey);
     }
 
-    public function __get($name)
+    public function getSecretKey()
     {
-        $snakeCased = Utils::camelToSnake($name);
+        return $this->secretKey;
+    }
 
-        if (isset($this->settings[$snakeCased])) {
-            return $this->settings[$snakeCased];
-        }
-
-        $class = get_class($this);
-        trigger_error("Cannot access undefined property {$class}::\${$name}", E_USER_ERROR);
+    public function setSecretKey($secretKey) {
+        $this->secretKey = $secretKey;
     }
 }

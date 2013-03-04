@@ -78,7 +78,7 @@ abstract class AbstractDumpCommand extends Command
             $config['length'] = (int) $length;
         }
 
-        $coder = new Coder($config);
+        $coder = new Coder($config['secret_key']);
         $codes = new Codes($coder, 0, $config['length']);
         $dumpWriter = $this->getDumpWriter();
         $dumper = new CodesDumper($codes, $dumpWriter);

@@ -10,31 +10,13 @@ class CoderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->coder = new Coder(array(
-            'secret_key' => $this->secretKey,
-            'length' => 10
-        ));
+        $this->coder = new Coder($this->secretKey);
     }
 
-    public function testCanAccessSettingsAsProperties()
+    public function setsSecretKeyGetterAndSetter()
     {
-        $this->assertEquals(10, $this->coder->length);
-    }
-
-    public function testTransformsSettingsKeysFromSnakeCaseToCamelCase()
-    {
-        $this->assertEquals($this->secretKey, $this->coder->secretKey);
-    }
-
-    public function testConstructorSetsConfig()
-    {
-        $coder = new Coder(array(
-            'secret_key' => 'some secret key',
-            'length' => 1000
-        ));
-
-        $this->assertEquals('some secret key', $coder->secretKey);
-        $this->assertEquals(1000, $coder->length);
+        $this->coder->setSecretKey('1234567890');
+        $this->assertEquals('1234567890', $this->coder->getSecretKey());
     }
 
     public function testParseReturnsCodesDigitAndMac()

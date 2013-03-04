@@ -1,8 +1,7 @@
 {
     "require": {
         "php": ">=5.3.2",
-        "symfony/console": "2.2.*@rc",
-        "symfony/config": "2.2.*@rc"
+        "symfony/console": "2.2.*@rc"
     },
     "autoload": {
         "psr-0": {
