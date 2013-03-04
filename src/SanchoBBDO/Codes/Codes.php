@@ -6,13 +6,15 @@ class Codes implements \Iterator
 {
     private $coder;
     private $offset;
+    private $limit;
 
     protected $position;
 
-    public function __construct($coder, $offset = 0)
+    public function __construct($coder, $offset = 0, $limit = null)
     {
         $this->setCoder($coder);
         $this->setOffset($offset);
+        $this->setLimit($limit);
         $this->rewind();
     }
 
@@ -38,7 +40,7 @@ class Codes implements \Iterator
 
     public function valid()
     {
-        return $this->position < $this->getCoder()->length;
+        return $this->position < $this->getLimit();
     }
 
     public function getCoder()
@@ -59,5 +61,19 @@ class Codes implements \Iterator
     public function setOffset($offset)
     {
         $this->offset = $offset;
+    }
+
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
+    public function setLimit($limit = null)
+    {
+        if (null === $limit) {
+            $limit = pow(36, 4);
+        }
+
+        $this->limit = $limit;
     }
 }

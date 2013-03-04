@@ -20,14 +20,13 @@ class CodesTest extends CodesTestCase
             $this->fail("Didn't iterate");
         }
 
-        $this->assertEquals($this->coder->length - 1, $key);
+        $this->assertEquals($this->codes->getLimit() - 1, $key);
     }
 
     public function testCoderSetterAndGetter()
     {
         $coder = new Coder(array(
             'secret_key' => 'sdfsdfs',
-            'length' => 10
         ));
 
         $this->codes->setCoder($coder);
@@ -50,5 +49,17 @@ class CodesTest extends CodesTestCase
     {
         $codes = new Codes($this->coder, 2);
         $this->assertEquals(2, $codes->getOffset());
+    }
+
+    public function testLimitSetterAndGetter()
+    {
+        $this->codes->setLimit(100);
+        $this->assertEquals(100, $this->codes->getLimit());
+    }
+
+    public function testDefaultLimitIsMaxAvailableCodes()
+    {
+        $codes = new Codes($this->coder);
+        $this->assertEquals(1679616, $codes->getLimit());
     }
 }

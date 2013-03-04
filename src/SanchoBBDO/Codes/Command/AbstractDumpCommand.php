@@ -79,7 +79,7 @@ abstract class AbstractDumpCommand extends Command
         }
 
         $coder = new Coder($config);
-        $codes = new Codes($coder);
+        $codes = new Codes($coder, 0, $config['length']);
         $dumpWriter = $this->getDumpWriter();
         $dumper = new CodesDumper($codes, $dumpWriter);
         $dumper->dump();

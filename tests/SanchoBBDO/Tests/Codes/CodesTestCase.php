@@ -14,6 +14,6 @@ class CodesTestCase extends \PHPUnit_Framework_TestCase
             'length' => 10
         ));
 
-        $this->codes = new Codes($this->coder, 0);
+        $this->codes = new Codes($this->coder, 0, 10);
     }
 }
