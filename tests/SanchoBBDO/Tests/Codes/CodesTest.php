@@ -20,7 +20,7 @@ class CodesTest extends CodesTestCase
             $this->fail("Didn't iterate");
         }
 
-        $this->assertEquals($this->codes->getLimit() - 1, $key);
+        $this->assertEquals($this->codes->getLimit() + $this->codes->getOffset() - 1, $key);
     }
 
     public function testCoderSetterAndGetter()

@@ -40,7 +40,7 @@ class Codes implements \Iterator
 
     public function valid()
     {
-        return $this->position < $this->getLimit();
+        return $this->position < $this->getOffset() + $this->getLimit();
     }
 
     public function getCoder()
