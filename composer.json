@@ -1,4 +1,7 @@
 {
+    "name": "sanchobbdo/codes",
+    "description": "Promotional codes generator and validator.",
+    "license": "MIT",
     "require": {
         "php": ">=5.3.2",
         "symfony/console": "2.2.*@rc",
