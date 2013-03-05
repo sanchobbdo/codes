@@ -29,7 +29,7 @@ class DumpTextCommandTest extends CommandTestCase
 
         $this->executeCommand(array(
             '--secret-key' => 'dum',
-            '--length' => 10,
+            '--limit' => 10,
             'file' => $filePath
         ));
 

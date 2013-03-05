@@ -37,7 +37,7 @@ class CommandTestCase extends \PHPUnit_Framework_TestCase
     {
         return $this->executeCommand(array(
             '--secret-key' => 'yamyam',
-            '--length' => 10
+            '--limit' => 10
         ));
     }
 

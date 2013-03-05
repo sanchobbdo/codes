@@ -41,14 +41,19 @@ class AbstractDumpCommandTest extends CommandTestCase
         $this->assertInputOption('secret-key', 'k', true, true);
     }
 
-    public function testLengthOption()
-    {
-        $this->assertInputOption('length', 'l', true, true);
-    }
-
     public function testSecretKeyOptionIsRequired()
     {
-        $this->assertRegExp('/secret-key/', $this->executeCommand());
+        $this->assertRegExp('/secret key/i', $this->executeCommand());
+    }
+
+    public function testOffsetOption()
+    {
+        $this->assertInputOption('offset', 'f', true, true);
+    }
+
+    public function testLimitOption()
+    {
+        $this->assertInputOption('limit', 'l', true, true);
     }
 
     public function testCallsGetDumpWriterOnExecute()
