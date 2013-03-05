@@ -2,6 +2,7 @@
 
 namespace SanchoBBDO\Codes;
 
+use Assert\Assertion;
 use SanchoBBDO\Codes\CodesConfiguration;
 use Symfony\Component\Config\Definition\Processor;
 
@@ -38,7 +39,7 @@ class Coder
 
     protected function encrypt($key)
     {
-        return sha1($key.$this->secretKey);
+        return sha1($key.$this->getSecretKey());
     }
 
     public function getSecretKey()
@@ -47,6 +48,8 @@ class Coder
     }
 
     public function setSecretKey($secretKey) {
+        Assertion::notBlank($secretKey, "Secret key can't be empty");
+
         $this->secretKey = $secretKey;
     }
 }
