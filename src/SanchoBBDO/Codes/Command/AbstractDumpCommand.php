@@ -2,7 +2,6 @@
 
 namespace SanchoBBDO\Codes\Command;
 
-use SanchoBBDO\Codes\Coder\Coder;
 use SanchoBBDO\Codes\Codes;
 use SanchoBBDO\Codes\CodesDumper;
 use Symfony\Component\Console\Command\Command;
@@ -77,18 +76,13 @@ abstract class AbstractDumpCommand extends Command
         }
     }
 
-    protected function getCoder()
-    {
-        return new Coder($this->input->getOption('secret-key'));
-    }
-
     protected function getCodes()
     {
-        return new Codes(
-            $this->getCoder(),
-            $this->input->getOption('offset'),
-            $this->input->getOption('limit')
-        );
+        return Codes::from(array(
+            'offset' => $this->input->getOption('offset'),
+            'limit' => $this->input->getOption('limit'),
+            'secret_key' => $this->input->getOption('secret-key')
+        ));
     }
 
     public function getInput()

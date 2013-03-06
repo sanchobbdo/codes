@@ -2,6 +2,7 @@
 
 namespace SanchoBBDO\Codes;
 
+use SanchoBBDO\Codes\Coder\Coder;
 use SanchoBBDO\Codes\Coder\CoderInterface;
 
 class Codes implements \Iterator
@@ -11,6 +12,13 @@ class Codes implements \Iterator
     private $limit;
 
     protected $position;
+
+    public static function from($config = array())
+    {
+        $coder = new Coder($config['secret_key']);
+        $codes = new Codes($coder, $config['offset'], $config['limit']);
+        return $codes;
+    }
 
     public function __construct($coder, $offset = 0, $limit = null)
     {
