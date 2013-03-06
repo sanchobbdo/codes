@@ -3,7 +3,6 @@
 namespace SanchoBBDO\Codes\Coder;
 
 use Assert\Assertion;
-use SanchoBBDO\Codes\CodesConfiguration;
 use SanchoBBDO\Codes\Utils;
 use Symfony\Component\Config\Definition\Processor;
 
