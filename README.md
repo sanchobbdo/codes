@@ -87,7 +87,7 @@ $codes = Codes::from(array(
 //
 // Available writers:
 //    Writes to stdout                  StdoutDumpWriter()
-//    Writes to symphony console output ConsoleDumpWriter(OutputInterface $oi)
+//    Writes to symfony console output  ConsoleDumpWriter(OutputInterface $oi)
 //    Writes to a text file             TextDumpWriter($filename)
 $dumpWriter = new TextDumpWriter('your-file.txt');
 
