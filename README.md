@@ -33,7 +33,7 @@ Validating codes
 require 'vendor/autoload.php';
 
 // Init a coder instance providing a secret key
-$coder = new SanchoBBDO\Codes\Coder('your-ultra-secret-key');
+$coder = new SanchoBBDO\Codes\Coder\Coder('your-ultra-secret-key');
 
 // Validate the given code
 if ($coder->isValid($_POST['code'])) {
@@ -69,7 +69,7 @@ From code:
 require 'vendor/autoload.php';
 
 // Init a coder instance providing a secret key
-$coder = new SanchoBBDO\Codes\Coder('your-utra-secret-key');
+$coder = new SanchoBBDO\Codes\Coder\Coder('your-utra-secret-key');
 
 // Init a codes instance passing the crated coder, offset (starts from) and
 // limit (how many codes should be generated)

@@ -2,7 +2,7 @@
 
 namespace SanchoBBDO\Codes\Command;
 
-use SanchoBBDO\Codes\Coder;
+use SanchoBBDO\Codes\Coder\Coder;
 use SanchoBBDO\Codes\Codes;
 use SanchoBBDO\Codes\CodesDumper;
 use Symfony\Component\Console\Command\Command;

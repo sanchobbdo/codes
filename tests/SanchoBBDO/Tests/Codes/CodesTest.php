@@ -3,7 +3,7 @@
 namespace SanchoBBDO\Tests\Codes;
 
 use SanchoBBDO\Codes\Codes;
-use SanchoBBDO\Codes\Coder;
+use SanchoBBDO\Codes\Coder\Coder;
 
 class CodesTest extends CodesTestCase
 {

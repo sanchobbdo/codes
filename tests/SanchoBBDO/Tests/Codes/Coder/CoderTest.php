@@ -1,8 +1,8 @@
 <?php
 
-namespace SanchoBBDO\Tests;
+namespace SanchoBBDO\Tests\Coder;
 
-use SanchoBBDO\Codes\Coder;
+use SanchoBBDO\Codes\Coder\Coder;
 
 class CoderTest extends \PHPUnit_Framework_TestCase
 {

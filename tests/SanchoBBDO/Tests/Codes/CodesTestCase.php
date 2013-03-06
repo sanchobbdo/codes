@@ -2,7 +2,7 @@
 
 namespace SanchoBBDO\Tests\Codes;
 
-use SanchoBBDO\Codes\Coder;
+use SanchoBBDO\Codes\Coder\Coder;
 use SanchoBBDO\Codes\Codes;
 
 class CodesTestCase extends \PHPUnit_Framework_TestCase

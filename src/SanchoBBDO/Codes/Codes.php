@@ -2,6 +2,8 @@
 
 namespace SanchoBBDO\Codes;
 
+use SanchoBBDO\Codes\Coder\CoderInterface;
+
 class Codes implements \Iterator
 {
     private $coder;
@@ -48,7 +50,7 @@ class Codes implements \Iterator
         return $this->coder;
     }
 
-    public function setCoder(Coder $coder)
+    public function setCoder(CoderInterface $coder)
     {
         $this->coder = $coder;
     }
