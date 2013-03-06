@@ -103,4 +103,4 @@ software.
 Lincense
 --------
 
-Licensed under the [MIT lincense](http://opensource.org/licenses/MIT).
+Licensed under the [MIT license](http://opensource.org/licenses/MIT).
