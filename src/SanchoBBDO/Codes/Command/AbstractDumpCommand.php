@@ -2,8 +2,8 @@
 
 namespace SanchoBBDO\Codes\Command;
 
+use SanchoBBDO\Codes\Codes;
 use SanchoBBDO\Codes\CodesDumper;
-use SanchoBBDO\Codes\CodesFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -78,7 +78,7 @@ abstract class AbstractDumpCommand extends Command
 
     protected function getCodes()
     {
-        return CodesFactory::build(array(
+        return Codes::from(array(
             'offset' => $this->input->getOption('offset'),
             'limit' => $this->input->getOption('limit'),
             'secret_key' => $this->input->getOption('secret-key')

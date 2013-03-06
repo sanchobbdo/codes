@@ -10,6 +10,13 @@ class Codes implements \Iterator
 
     protected $position;
 
+    public static function from($config = array())
+    {
+        $coder = new Coder($config['secret_key']);
+        $codes = new Codes($coder, $config['offset'], $config['limit']);
+        return $codes;
+    }
+
     public function __construct($coder, $offset = 0, $limit = null)
     {
         $this->setCoder($coder);

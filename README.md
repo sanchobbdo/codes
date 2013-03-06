@@ -68,8 +68,8 @@ From code:
 // Include composer's autoload
 require 'vendor/autoload.php';
 
-// Init a codes instance using th codes factory build method
-$codes = SanchoBBDO\Codes\CodesFactory::build(array(
+// Init a codes instance using the codes with method
+$codes = SanchoBBDO\Codes\Codes::from(array(
     'offset'     => 100,         // Start from
     'limit'      => 1000,        // How many codes to generate
     'secret_key' => 'secret-key' // Coder secret key
