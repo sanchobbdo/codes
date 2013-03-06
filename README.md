@@ -72,7 +72,7 @@ require 'vendor/autoload.php';
 $coder = new SanchoBBDO\Codes\Coder('your-utra-secret-key');
 
 // Init a codes instance passing the crated coder, offset (starts from) and
-// limit (show many codes should be generated)
+// limit (how many codes should be generated)
 $codes = new SanchoBBDO\Codes\Codes($coder, 0, 1000);
 
 // Init a dump writer
