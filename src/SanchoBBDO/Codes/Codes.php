@@ -7,15 +7,29 @@ use SanchoBBDO\Codes\Coder\CoderInterface;
 
 class Codes implements \Iterator
 {
+    private static $defaultCoderClass = '\\SanchoBBDO\\Codes\\Coder\\Coder';
+
     private $coder;
     private $offset;
     private $limit;
 
     protected $position;
 
+    public static function setDefaultCoderClass($className)
+    {
+        self::$defaultCoderClass = $className;
+    }
+
+    public static function getDefaultCoderClass()
+    {
+        return self::$defaultCoderClass;
+    }
+
     public static function from($config = array())
     {
-        $coder = new Coder(array(
+        $coderClass = self::getDefaultCoderClass();
+
+        $coder = new $coderClass(array(
             'secret_key' => $config['secret_key']
         ));
         $codes = new Codes($coder, $config['offset'], $config['limit']);
