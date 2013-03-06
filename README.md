@@ -32,8 +32,11 @@ Validating codes
 // Include composer's autoload
 require 'vendor/autoload.php';
 
+// Use coder
+use SanchoBBDO\Codes\Coder;
+
 // Init a coder instance providing a secret key
-$coder = new SanchoBBDO\Codes\Coder('your-ultra-secret-key');
+$coder = new Coder('your-ultra-secret-key');
 
 // Validate the given code
 if ($coder->isValid($_POST['code'])) {
@@ -68,22 +71,28 @@ From code:
 // Include composer's autoload
 require 'vendor/autoload.php';
 
-// Init a codes instance using the codes with method
-$codes = SanchoBBDO\Codes\Codes::from(array(
+// Use SanchoBBDO Codes' classes
+use SanchoBBDO\Codes\Codes;
+use SanchoBBDO\Codes\CodesDumper;
+use SanchoBBDO\Codes\DumpWriter\TextDumpWriter;
+
+// Init a codes instance using the 'from' method
+$codes = Codes::from(array(
     'offset'     => 100,         // Start from
     'limit'      => 1000,        // How many codes to generate
     'secret_key' => 'secret-key' // Coder secret key
 ));
 
 // Init a dump writer
+//
 // Available writers:
 //    Writes to stdout                  StdoutDumpWriter()
 //    Writes to symphony console output ConsoleDumpWriter(OutputInterface $oi)
 //    Writes to a text file             TextDumpWriter($filename)
-$dumpWriter = new SanchoBBDO\Codes\DumpWriter\TextDumpWriter('your-file.txt');
+$dumpWriter = new TextDumpWriter('your-file.txt');
 
 // Init a codes dumper passing your codes and dump writer instances
-$codesDumper = new SanchoBBDO\Codes\CodesDumper($codes, $dumpWriter);
+$codesDumper = new CodesDumper($codes, $dumpWriter);
 
 // Dump!
 $codesDumper->dump();
