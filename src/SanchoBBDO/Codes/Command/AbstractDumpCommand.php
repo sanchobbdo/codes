@@ -81,7 +81,9 @@ abstract class AbstractDumpCommand extends Command
         return Codes::from(array(
             'offset' => $this->input->getOption('offset'),
             'limit' => $this->input->getOption('limit'),
-            'secret_key' => $this->input->getOption('secret-key')
+            'coder' => array(
+                'secret_key' => $this->input->getOption('secret-key')
+            )
         ));
     }
 

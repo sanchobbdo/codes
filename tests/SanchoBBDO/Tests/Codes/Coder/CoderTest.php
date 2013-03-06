@@ -19,7 +19,10 @@ class CoderTest extends \PHPUnit_Framework_TestCase
     {
         $treeBuilder = $this->coder->getConfigTreeBuilder();
 
-        $this->assertInstanceOf('\\Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder', $treeBuilder);
+        $this->assertInstanceOf(
+            '\\Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder',
+            $treeBuilder
+        );
 
         $tree = $treeBuilder->buildTree();
         $this->assertArrayHasKey('secret_key', $tree->getChildren());

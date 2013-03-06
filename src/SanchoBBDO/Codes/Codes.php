@@ -4,6 +4,7 @@ namespace SanchoBBDO\Codes;
 
 use SanchoBBDO\Codes\Coder\Coder;
 use SanchoBBDO\Codes\Coder\CoderInterface;
+use Symfony\Component\Config\Definition\Processor;
 
 class Codes implements \Iterator
 {
@@ -27,12 +28,18 @@ class Codes implements \Iterator
 
     public static function from($config = array())
     {
-        $coderClass = self::getDefaultCoderClass();
+        $processor = new Processor();
+        $configuration = new CodesConfiguration();
+        $config = $processor->processConfiguration($configuration, array($config));
 
-        $coder = new $coderClass(array(
-            'secret_key' => $config['secret_key']
-        ));
+        $coderClass = !empty($config['coder']['class']) ?
+            $config['coder']['class'] : self::getDefaultCoderClass();
+
+        unset($config['coder']['class']);
+        $coder = new $coderClass($config['coder']);
+
         $codes = new Codes($coder, $config['offset'], $config['limit']);
+
         return $codes;
     }
 
