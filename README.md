@@ -68,12 +68,12 @@ From code:
 // Include composer's autoload
 require 'vendor/autoload.php';
 
-// Init a coder instance providing a secret key
-$coder = new SanchoBBDO\Codes\Coder('your-utra-secret-key');
-
-// Init a codes instance passing the crated coder, offset (starts from) and
-// limit (show many codes should be generated)
-$codes = new SanchoBBDO\Codes\Codes($coder, 0, 1000);
+// Init a codes instance using th codes factory build method
+$codes = SanchoBBDO\Codes\CodesFactory::build(array(
+    'offset'     => 100,         // Start from
+    'limit'      => 1000,        // How many codes to generate
+    'secret_key' => 'secret-key' // Coder secret key
+));
 
 // Init a dump writer
 // Available writers:
