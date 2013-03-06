@@ -15,7 +15,9 @@ class Codes implements \Iterator
 
     public static function from($config = array())
     {
-        $coder = new Coder($config['secret_key']);
+        $coder = new Coder(array(
+            'secret_key' => $config['secret_key']
+        ));
         $codes = new Codes($coder, $config['offset'], $config['limit']);
         return $codes;
     }

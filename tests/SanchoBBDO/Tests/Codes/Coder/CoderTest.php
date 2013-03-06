@@ -10,13 +10,24 @@ class CoderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->coder = new Coder($this->secretKey);
+        $this->coder = new Coder(array(
+            'secret_key' => $this->secretKey
+        ));
     }
 
-    public function setsSecretKeyGetterAndSetter()
+    public function testConfigTreeBuilder()
     {
-        $this->coder->setSecretKey('1234567890');
-        $this->assertEquals('1234567890', $this->coder->getSecretKey());
+        $treeBuilder = $this->coder->getConfigTreeBuilder();
+
+        $this->assertInstanceOf('\\Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder', $treeBuilder);
+
+        $tree = $treeBuilder->buildTree();
+        $this->assertArrayHasKey('secret_key', $tree->getChildren());
+    }
+
+    public function setsSecretKeyGetter()
+    {
+        $this->assertEquals($this->secretKey, $this->coder->getSecretKey());
     }
 
     public function testParseReturnsCodesDigitAndMac()

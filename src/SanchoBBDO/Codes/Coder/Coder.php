@@ -2,17 +2,34 @@
 
 namespace SanchoBBDO\Codes\Coder;
 
-use Assert\Assertion;
 use SanchoBBDO\Codes\Utils;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Processor;
 
 class Coder implements CoderInterface
 {
     private $secretKey;
 
-    public function __construct($secretKey)
+    public function __construct($config = array())
     {
-        $this->setSecretKey($secretKey);
+        $processor = new Processor();
+        $config = $processor->processConfiguration($this, array($config));
+
+        $this->secretKey = $config['secret_key'];
+    }
+
+    public function getConfigTreeBuilder()
+    {
+        $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root('coder');
+        $rootNode
+            ->children()
+                ->scalarNode('secret_key')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
+            ->end();
+        return $treeBuilder;
     }
 
     public function encode($digit)
@@ -45,11 +62,5 @@ class Coder implements CoderInterface
     public function getSecretKey()
     {
         return $this->secretKey;
-    }
-
-    public function setSecretKey($secretKey) {
-        Assertion::notBlank($secretKey, "Secret key can't be empty");
-
-        $this->secretKey = $secretKey;
     }
 }
