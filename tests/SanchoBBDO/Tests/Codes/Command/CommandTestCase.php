@@ -35,7 +35,7 @@ class CommandTestCase extends \PHPUnit_Framework_TestCase
 
     protected function executeDefaultCommnad($extras = array())
     {
-        $defaults = array();
+        $defaults = array('config' => dirname(__DIR__).'/Fixture/config.yaml');
         return $this->executeCommand(array_merge($defaults, $extras));
     }
 

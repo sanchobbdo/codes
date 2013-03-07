@@ -2,6 +2,7 @@
 
 namespace SanchoBBDO\Codes\Command;
 
+use Jasny\Config;
 use SanchoBBDO\Codes\Codes;
 use SanchoBBDO\Codes\CodesDumper;
 use Symfony\Component\Console\Command\Command;
@@ -18,7 +19,12 @@ abstract class AbstractDumpCommand extends Command
 
     public function configure()
     {
-
+        $this
+            ->addArgument(
+                'config',
+                InputArgument::OPTIONAL,
+                'Config file path'
+            );
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -26,18 +32,25 @@ abstract class AbstractDumpCommand extends Command
         $this->input = $input;
         $this->output = $output;
 
-        $codes = $this->getCodes();
-
-        if (!$codes) {
-            $output->writeln('<error>Error!</error>');
-            return 1;
-        }
-
         try {
+            $configFile = $input->getArgument('config');
+
+            if ($configFile) {
+                $config = (array) Config::i()->load($input->getArgument('config'));
+                $this->setCodes(Codes::from($config));
+            }
+
+            $codes = $this->getCodes();
+
+            if (!$codes) {
+                throw new \Exception("Not enough arguments.");
+            }
+
             $dumper = new CodesDumper($this->getCodes(), $this->getDumpWriter());
             $dumper->dump();
         } catch (\Exception $e) {
             $this->getOutput()->writeln('<error>'.$e->getMessage().'</error>');
+            return 1;
         }
     }
 

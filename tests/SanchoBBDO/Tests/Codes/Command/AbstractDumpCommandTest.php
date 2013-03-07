@@ -31,7 +31,19 @@ class AbstractDumpCommandTest extends CommandTestCase
     public function testDisplayErrorIfNoCodesAreSet()
     {
         $output = $this->executeCommand(array());
-        $this->assertContains('Error', $output);
+        $this->assertContains('enough arguments', $output);
+    }
+
+    public function testLoadsAndUsesConfigFile()
+    {
+        $this->executeDefaultCommnad();
+        $this->assertInstanceOf('\\SanchoBBDO\\Codes\\Codes', $this->command->getCodes());
+    }
+
+    public function testNotifiesIfFileWasNotFound()
+    {
+        $output = $this->executeCommand(array('config' => 'idontexist.yaml'));
+        $this->assertContains('Unable' , $output);
     }
 
     public function testCallsGetDumpWriterOnExecute()
