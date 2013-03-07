@@ -8,10 +8,8 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class DumpTextCommand extends AbstractDumpCommand
 {
-    public function configure()
+    public function init()
     {
-        parent::configure();
-
         $this
             ->addArgument(
                 'file',

@@ -17,8 +17,11 @@ abstract class AbstractDumpCommand extends Command
     private $output;
     private $codes;
 
+
     public function configure()
     {
+        $this->init();
+
         $this
             ->addArgument(
                 'config',
@@ -73,6 +76,8 @@ abstract class AbstractDumpCommand extends Command
     {
         return $this->output;
     }
+
+    abstract protected function init();
 
     abstract public function getDumpWriter();
 }
