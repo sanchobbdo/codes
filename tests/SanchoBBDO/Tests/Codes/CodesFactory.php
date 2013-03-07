@@ -8,11 +8,8 @@ class CodesFactory
 {
     public static function createCodes()
     {
-        $codes = Codes::from(array(
-            'offset' => 10,
-            'limit' => 10,
-            'secret_key' => 'asdsadsadasd'
-        ));
+        $config = yaml_parse_file(dirname(__DIR__).'/Codes/Fixture/config.yaml');
+        $codes = Codes::from($config);
 
         return $codes;
     }
