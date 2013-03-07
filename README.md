@@ -70,6 +70,8 @@ From your project root:
 ./vendor/bin/codes dump:txt your/config/file.yml dump.txt
 ```
 
+---
+
 From code:
 
 ```php
