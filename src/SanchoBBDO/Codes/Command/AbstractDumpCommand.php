@@ -13,10 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class AbstractDumpCommand extends Command
 {
-    private $input;
-    private $output;
     private $codes;
-
 
     public function configure()
     {
@@ -47,7 +44,7 @@ abstract class AbstractDumpCommand extends Command
             }
 
             $dumper = new CodesDumper(
-                $this->getCodes(),
+                $codes,
                 $this->getDumpWriter($input, $output)
             );
 

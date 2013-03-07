@@ -34,6 +34,11 @@ class AbstractDumpCommandTest extends CommandTestCase
         $this->assertContains('enough arguments', $output);
     }
 
+    public function testConfigArgument()
+    {
+        $this->assertInputArgument('config', false);
+    }
+
     public function testLoadsAndUsesConfigFile()
     {
         $this->executeDefaultCommnad();
