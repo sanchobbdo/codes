@@ -8,12 +8,7 @@ use SanchoBBDO\Codes\Command\DumpTextCommand;
 class DumpTextCommandTest extends CommandTestCase
 {
     protected function createCommand() {
-        return new DumpTextCommand;
-    }
-
-    public function testActionIsTxt()
-    {
-        $this->assertEquals('txt', $this->command->getAction());
+        return new DumpTextCommand('dump');
     }
 
     public function testFileArgument()

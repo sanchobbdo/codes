@@ -8,17 +8,16 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class DumpTextCommand extends AbstractDumpCommand
 {
-    protected $action = 'txt';
-
     public function configure()
     {
         parent::configure();
 
-        $this->addArgument(
-            'file',
-            InputArgument::REQUIRED,
-            'Text file to dump codes to'
-        );
+        $this
+            ->addArgument(
+                'file',
+                InputArgument::REQUIRED,
+                'Text file to dump codes to'
+            );
     }
 
     public function getDumpWriter()

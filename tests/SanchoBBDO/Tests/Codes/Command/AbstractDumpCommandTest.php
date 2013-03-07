@@ -10,30 +10,13 @@ class AbstractDumpCommandTest extends CommandTestCase
     protected function createCommand()
     {
         $this->writer = $this->getMock('\\SanchoBBDO\\Codes\\DumpWriter\\DumpWriterInterface');
-        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand');
+        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand', array('dump'));
         $command
             ->expects($this->any())
             ->method('getDumpWriter')
             ->will($this->returnValue($this->writer));
 
         return $command;
-    }
-
-    public function testSetsDumpAsNameIfActionIsNotDeclared()
-    {
-        $this->assertEquals('dump', $this->command->getName());
-    }
-
-    public function testSetNameAsDumpSemicolonActionIFActionIsDeclared()
-    {
-        $command = new DumpCommandFixture;
-        $this->assertEquals('dump:test', $command->getName());
-    }
-
-    public function testSetActionSetName()
-    {
-        $this->command->setAction('my-action');
-        $this->assertEquals("dump:my-action", $this->command->getName());
     }
 
     public function testSecretKeyOption()

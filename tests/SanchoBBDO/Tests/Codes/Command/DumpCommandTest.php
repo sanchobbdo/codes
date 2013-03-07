@@ -8,7 +8,7 @@ class DumpCommandTest extends CommandTestCase
 {
     protected function createCommand()
     {
-        return new DumpCommand;
+        return new DumpCommand('dump');
     }
 
     public function testGetDumpWriterReturnsAConsoleDumpWriter()

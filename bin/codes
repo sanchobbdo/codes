@@ -8,7 +8,7 @@ use Symfony\Component\Console\Application;
 
 $application = new Application();
 
-$application->add(new Commands\DumpCommand);
-$application->add(new Commands\DumpTextCommand);
+$application->add(new Commands\DumpCommand('dump'));
+$application->add(new Commands\DumpTextCommand('dump:txt'));
 
 $application->run();
