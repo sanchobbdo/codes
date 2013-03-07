@@ -49,7 +49,11 @@ abstract class AbstractDumpCommand extends Command
                 throw new \Exception("Not enough arguments.");
             }
 
-            $dumper = new CodesDumper($this->getCodes(), $this->getDumpWriter());
+            $dumper = new CodesDumper(
+                $this->getCodes(),
+                $this->getDumpWriter($input, $output)
+            );
+
             $dumper->dump();
         } catch (\Exception $e) {
             $this->getOutput()->writeln('<error>'.$e->getMessage().'</error>');
@@ -79,5 +83,5 @@ abstract class AbstractDumpCommand extends Command
 
     abstract protected function init();
 
-    abstract public function getDumpWriter();
+    abstract public function getDumpWriter(InputInterface $input, OutputInterface $output);
 }

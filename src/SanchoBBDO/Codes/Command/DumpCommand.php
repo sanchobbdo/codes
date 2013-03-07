@@ -4,6 +4,8 @@ namespace SanchoBBDO\Codes\Command;
 
 use SanchoBBDO\Codes\Command\AbstractDumpCommand;
 use SanchoBBDO\Codes\DumpWriter\ConsoleDumpWriter;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class DumpCommand extends AbstractDumpCommand
 {
@@ -12,8 +14,8 @@ class DumpCommand extends AbstractDumpCommand
 
     }
 
-    public function getDumpWriter()
+    public function getDumpWriter(InputInterface $input, OutputInterface $output)
     {
-        return new ConsoleDumpWriter($this->getOutput());
+        return new ConsoleDumpWriter($output);
     }
 }
