@@ -14,7 +14,7 @@ class DumpCommand extends AbstractDumpCommand
 
     }
 
-    public function getDumpWriter(InputInterface $input, OutputInterface $output)
+    protected function getDumpWriter(InputInterface $input, OutputInterface $output)
     {
         return new ConsoleDumpWriter($output);
     }

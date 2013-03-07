@@ -70,5 +70,5 @@ abstract class AbstractDumpCommand extends Command
 
     abstract protected function init();
 
-    abstract public function getDumpWriter(InputInterface $input, OutputInterface $output);
+    abstract protected function getDumpWriter(InputInterface $input, OutputInterface $output);
 }
