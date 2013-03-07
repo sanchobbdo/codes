@@ -72,22 +72,4 @@ class AbstractDumpCommandTest extends CommandTestCase
 
         $this->executeDefaultCommnad();
     }
-
-    public function testGetInputReturnsCommandInput()
-    {
-        $this->executeDefaultCommnad();
-        $this->assertInstanceOf(
-            'Symfony\\Component\\Console\\Input\\InputInterface',
-            $this->command->getInput()
-        );
-    }
-
-    public function testGetOutputReturnsCommandOutput()
-    {
-        $this->executeDefaultCommnad();
-        $this->assertInstanceOf(
-            'Symfony\\Component\\Console\\Output\\OutputInterface',
-            $this->command->getOutput()
-        );
-    }
 }

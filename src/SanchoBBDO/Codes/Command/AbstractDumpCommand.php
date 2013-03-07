@@ -32,9 +32,6 @@ abstract class AbstractDumpCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->input = $input;
-        $this->output = $output;
-
         try {
             $configFile = $input->getArgument('config');
 
@@ -56,7 +53,7 @@ abstract class AbstractDumpCommand extends Command
 
             $dumper->dump();
         } catch (\Exception $e) {
-            $this->getOutput()->writeln('<error>'.$e->getMessage().'</error>');
+            $output->writeln('<error>'.$e->getMessage().'</error>');
             return 1;
         }
     }
@@ -69,16 +66,6 @@ abstract class AbstractDumpCommand extends Command
     public function getCodes()
     {
         return $this->codes;
-    }
-
-    public function getInput()
-    {
-        return $this->input;
-    }
-
-    public function getOutput()
-    {
-        return $this->output;
     }
 
     abstract protected function init();
