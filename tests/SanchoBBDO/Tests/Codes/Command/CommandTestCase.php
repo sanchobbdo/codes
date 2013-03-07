@@ -33,12 +33,10 @@ class CommandTestCase extends \PHPUnit_Framework_TestCase
         return $this->commandTester->getDisplay();
     }
 
-    protected function executeDefaultCommnad()
+    protected function executeDefaultCommnad($extras = array())
     {
-        return $this->executeCommand(array(
-            '--secret-key' => 'yamyam',
-            '--limit' => 10
-        ));
+        $defaults = array();
+        return $this->executeCommand(array_merge($defaults, $extras));
     }
 
     protected function assertInputOption($name, $shortcut, $acceptsValue, $requiredValue)

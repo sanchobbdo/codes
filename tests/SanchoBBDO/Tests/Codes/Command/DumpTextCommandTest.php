@@ -22,11 +22,7 @@ class DumpTextCommandTest extends CommandTestCase
         $file = 'dump.txt';
         $filePath = vfsStream::url("dump/{$file}");
 
-        $this->executeCommand(array(
-            '--secret-key' => 'dum',
-            '--limit' => 10,
-            'file' => $filePath
-        ));
+        $this->executeDefaultCommnad(array('file' => $filePath));
 
         $this->assertNotEmpty(file_get_contents($filePath));
     }

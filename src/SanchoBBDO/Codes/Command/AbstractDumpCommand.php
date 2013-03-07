@@ -14,35 +14,24 @@ abstract class AbstractDumpCommand extends Command
 {
     private $input;
     private $output;
+    private $codes;
 
     public function configure()
     {
-        $this
-            ->setDescription('Dumps codes to screen')
-            ->addOption(
-                'secret-key',
-                'k',
-                InputOption::VALUE_REQUIRED,
-                'Secret key to generate codes'
-            )
-            ->addOption(
-                'offset',
-                'f',
-                InputOption::VALUE_REQUIRED,
-                'How many codes to skip'
-            )
-            ->addOption(
-                'limit',
-                'l',
-                InputOption::VALUE_REQUIRED,
-                'How many codes to generate'
-            );
+
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->input = $input;
         $this->output = $output;
+
+        $codes = $this->getCodes();
+
+        if (!$codes) {
+            $output->writeln('<error>Error!</error>');
+            return 1;
+        }
 
         try {
             $dumper = new CodesDumper($this->getCodes(), $this->getDumpWriter());
@@ -52,13 +41,14 @@ abstract class AbstractDumpCommand extends Command
         }
     }
 
-    protected function getCodes()
+    public function setCodes(Codes $codes)
     {
-        return Codes::from(array(
-            'offset' => $this->input->getOption('offset'),
-            'limit' => $this->input->getOption('limit'),
-            'secret_key' => $this->input->getOption('secret-key')
-        ));
+        $this->codes = $codes;
+    }
+
+    public function getCodes()
+    {
+        return $this->codes;
     }
 
     public function getInput()

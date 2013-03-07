@@ -4,6 +4,7 @@ namespace SanchoBBDO\Tests\Codes\Command;
 
 use SanchoBBDO\Codes\Command\AbstractDumpCommand;
 use SanchoBBDO\Tests\Codes\Fixture\DumpCommandFixture;
+use SanchoBBDO\Tests\Codes\CodesFactory;
 
 class AbstractDumpCommandTest extends CommandTestCase
 {
@@ -19,24 +20,18 @@ class AbstractDumpCommandTest extends CommandTestCase
         return $command;
     }
 
-    public function testSecretKeyOption()
+    public function testCodesGetterAndSetter()
     {
-        $this->assertInputOption('secret-key', 'k', true, true);
+        $codes = CodesFactory::createCodes();
+
+        $this->command->setCodes($codes);
+        $this->assertEquals($codes, $this->command->getCodes());
     }
 
-    public function testSecretKeyOptionIsRequired()
+    public function testDisplayErrorIfNoCodesAreSet()
     {
-        $this->assertRegExp('/secret key/i', $this->executeCommand());
-    }
-
-    public function testOffsetOption()
-    {
-        $this->assertInputOption('offset', 'f', true, true);
-    }
-
-    public function testLimitOption()
-    {
-        $this->assertInputOption('limit', 'l', true, true);
+        $output = $this->executeCommand(array());
+        $this->assertContains('Error', $output);
     }
 
     public function testCallsGetDumpWriterOnExecute()
