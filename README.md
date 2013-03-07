@@ -51,19 +51,26 @@ Generating codes
 
 From the command line:
 
+Create a config file somewhere in your project:
+
+```yaml
+# /path/to/your/project/codes.yml
+offset: 0,
+limit: 1000,
+secret_key: your-secret-key
+```
+
+From your project root:
+
 ```bash
 # Dump to screen
-./vendor/bin/codes dump \
-    --secret-key=your-secret-key \
-    --offset=0 \
-    --limit=1000
+./vendor/bin/codes dump your/config/file.json
 
 # Dump to txt file
-./vendor/bin/codes dump:txt your-codes-file.txt \
-    --secret-key=your-secret-key \
-    --offset=0 \
-    --limit=1000
+./vendor/bin/codes dump:txt your/config/file.yml dump.txt
 ```
+
+---
 
 From code:
 

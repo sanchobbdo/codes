@@ -5,24 +5,23 @@ namespace SanchoBBDO\Codes\Command;
 use SanchoBBDO\Codes\Command\AbstractDumpCommand;
 use SanchoBBDO\Codes\DumpWriter\TextDumpWriter;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class DumpTextCommand extends AbstractDumpCommand
 {
-    protected $action = 'txt';
-
-    public function configure()
+    public function init()
     {
-        parent::configure();
-
-        $this->addArgument(
-            'file',
-            InputArgument::REQUIRED,
-            'Text file to dump codes to'
-        );
+        $this
+            ->addArgument(
+                'file',
+                InputArgument::REQUIRED,
+                'Text file to dump codes to'
+            );
     }
 
-    public function getDumpWriter()
+    protected function getDumpWriter(InputInterface $input, OutputInterface $output)
     {
-        return new TextDumpWriter($this->getInput()->getArgument('file'));
+        return new TextDumpWriter($input->getArgument('file'));
     }
 }
