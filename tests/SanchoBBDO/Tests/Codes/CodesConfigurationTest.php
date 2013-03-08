@@ -7,18 +7,6 @@ use Symfony\Component\Config\Definition\Processor;
 
 class CodesConfigurationTest extends \PHPUnit_Framework_TestCase
 {
-    private static $defaultCoderClass = '\\SanchoBBDO\\Codes\\Coder\\Coder';
-
-    public static function setDefaultCoderClass($className)
-    {
-        self::$defaultCoderClass = $className;
-    }
-
-    public static function getDefaultCoderClass()
-    {
-        return self::$defaultCoderClass;
-    }
-
     public function setUp()
     {
         $this->configuration = new CodesConfiguration();
