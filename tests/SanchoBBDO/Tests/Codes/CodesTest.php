@@ -74,7 +74,7 @@ class CodesTest extends CodesTestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException \SanchoBBDO\Codes\Exception\OffBoundaryException
      */
     public function testShouldThrowExceptionIfLimitIsGreaterThanPermitted()
     {

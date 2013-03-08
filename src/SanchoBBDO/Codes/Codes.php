@@ -94,7 +94,7 @@ class Codes implements \Iterator
         $limit    = $limit ?: $boundary - $offset;
 
         if ($limit + $offset > $boundary) {
-            throw new \Exception("Passed limit {$limit} exceeds permited boundary {$boundary}");
+            throw new Exception\OffBoundaryException("Passed limit {$limit} exceeds permited boundary {$boundary}");
         }
 
         $this->limit = $limit;
