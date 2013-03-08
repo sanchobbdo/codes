@@ -67,19 +67,9 @@ class Codes implements \Iterator
         return $this->coder;
     }
 
-    public function setCoder(CoderInterface $coder)
-    {
-        $this->coder = $coder;
-    }
-
     public function getOffset()
     {
         return $this->offset;
-    }
-
-    public function setOffset($offset)
-    {
-        $this->offset = $offset;
     }
 
     public function getLimit()
@@ -87,7 +77,17 @@ class Codes implements \Iterator
         return $this->limit;
     }
 
-    public function setLimit($limit = null)
+    protected function setCoder(CoderInterface $coder)
+    {
+        $this->coder = $coder;
+    }
+
+    protected function setOffset($offset)
+    {
+        $this->offset = $offset;
+    }
+
+    protected function setLimit($limit = null)
     {
         if (null === $limit) {
             $limit = pow(36, 4);

@@ -40,20 +40,14 @@ class CodesTest extends CodesTestCase
         $this->assertEquals($this->codes->getLimit() + $this->codes->getOffset() - 1, $key);
     }
 
-    public function testCoderSetterAndGetter()
+    public function testCoderGetter()
     {
-        $coder = new Coder(array(
-            'secret_key' => 'sdfsdfs',
-        ));
-
-        $this->codes->setCoder($coder);
-        $this->assertEquals($coder, $this->codes->getCoder());
+        $this->assertEquals($this->coder, $this->codes->getCoder());
     }
 
-    public function testOffsetSetterandGetter()
+    public function testOffsetGetter()
     {
-        $this->codes->setOffset(11);
-        $this->assertEquals(11, $this->codes->getOffset());
+        $this->assertEquals(10, $this->codes->getOffset());
     }
 
     public function testDefaultOffsetIs0()
@@ -68,10 +62,9 @@ class CodesTest extends CodesTestCase
         $this->assertEquals(2, $codes->getOffset());
     }
 
-    public function testLimitSetterAndGetter()
+    public function testLimitGetter()
     {
-        $this->codes->setLimit(100);
-        $this->assertEquals(100, $this->codes->getLimit());
+        $this->assertEquals(10, $this->codes->getLimit());
     }
 
     public function testDefaultLimitIsMaxAvailableCodes()
