@@ -11,12 +11,14 @@ class Coder implements CoderInterface
 {
     private $secretKey;
     private $macLength;
+    private $keyLength;
 
     public function __construct($config = array())
     {
         $config = Utils::processConfig(new CoderConfiguration, $config);
         $this->setSecretKey($config['secret_key']);
         $this->setMacLength($config['mac_length']);
+        $this->setKeyLength($config['key_length']);
     }
 
     public function encode($digit)
@@ -47,12 +49,12 @@ class Coder implements CoderInterface
 
     public function getBoundary()
     {
-        return pow(36, 4);
+        return pow(36, $this->getKeyLength());
     }
 
     protected function digitToKey($digit)
     {
-        return Utils::zerofill(Utils::base36Encode($digit), 4);
+        return Utils::zerofill(Utils::base36Encode($digit), $this->getKeyLength());
     }
 
     protected function keyToDigit($key)
@@ -62,7 +64,10 @@ class Coder implements CoderInterface
 
     protected function splitCode($code)
     {
-        return array(substr($code, 0, 4), substr($code, 4));
+        return array(
+            substr($code, 0, $this->getKeyLength()),
+            substr($code, $this->getKeyLength())
+        );
     }
 
     protected function composeCode($key, $mac)
@@ -85,6 +90,11 @@ class Coder implements CoderInterface
         return $this->macLength;
     }
 
+    public function getKeyLength()
+    {
+        return $this->keyLength;
+    }
+
     protected function setSecretKey($secretKey)
     {
         $this->secretKey = $secretKey;
@@ -93,5 +103,10 @@ class Coder implements CoderInterface
     protected function setMacLength($macLength)
     {
         $this->macLength = $macLength;
+    }
+
+    protected function setKeyLength($keyLength)
+    {
+        $this->keyLength = $keyLength;
     }
 }
