@@ -90,7 +90,7 @@ class Codes implements \Iterator
     protected function setLimit($limit = null)
     {
         if (null === $limit) {
-            $limit = pow(36, 4);
+            $limit = $this->getCoder()->getBoundary() - $this->getOffset();
         }
 
         $this->limit = $limit;

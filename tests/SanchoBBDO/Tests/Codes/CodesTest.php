@@ -69,7 +69,7 @@ class CodesTest extends CodesTestCase
 
     public function testDefaultLimitIsMaxAvailableCodes()
     {
-        $codes = new Codes($this->coder);
-        $this->assertEquals(1679616, $codes->getLimit());
+        $codes = new Codes($this->coder, 10);
+        $this->assertEquals($this->coder->getBoundary() - 10, $codes->getLimit());
     }
 }
