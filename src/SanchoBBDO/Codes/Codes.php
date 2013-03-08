@@ -18,8 +18,7 @@ class Codes implements \Iterator
     {
         $config = Utils::processConfig(new CodesConfiguration(), $config);
 
-        $coderClass = $config['coder']['class'];
-        unset($config['coder']['class']);
+        $coderClass = Utils::arrayGetAndUnsetKey($config['coder'], 'class');
 
         $coder = new $coderClass($config['coder']);
         $codes = new Codes($coder, $config['offset'], $config['limit']);
