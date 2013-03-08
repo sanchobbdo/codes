@@ -54,7 +54,7 @@ class Codes implements \Iterator
 
     public function valid()
     {
-        return $this->position < $this->getOffset() + $this->getLimit();
+        return $this->position <= $this->getLastKey();
     }
 
     public function getCoder()
@@ -70,6 +70,11 @@ class Codes implements \Iterator
     public function getLimit()
     {
         return $this->limit;
+    }
+
+    public function getLastKey()
+    {
+        return $this->getOffset() + $this->getLimit() - 1;
     }
 
     protected function setCoder(CoderInterface $coder)
