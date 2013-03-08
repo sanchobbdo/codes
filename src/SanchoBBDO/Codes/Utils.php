@@ -2,6 +2,9 @@
 
 namespace SanchoBBDO\Codes;
 
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Processor;
+
 class Utils
 {
     static public function camelToSnake($camel)
@@ -39,5 +42,11 @@ class Utils
             return $result;
         }
         return $data;
+    }
+
+    static public function processConfig(ConfigurationInterface $configuration, array $config)
+    {
+        $processor = new Processor();
+        return $processor->processConfiguration($configuration, array($config));
     }
 }
