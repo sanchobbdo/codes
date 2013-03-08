@@ -13,30 +13,14 @@ class Coder implements CoderInterface
 
     public function __construct($config = array())
     {
-        $processor = new Processor();
-        $config = $processor->processConfiguration($this, array($config));
+        $config = Utils::processConfig(new CoderConfiguration, $config);
 
         $this->secretKey = $config['secret_key'];
     }
 
-    public function getConfigTreeBuilder()
-    {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('coder');
-        $rootNode
-            ->children()
-                ->scalarNode('secret_key')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-            ->end();
-        return $treeBuilder;
-    }
-
     public function encode($digit)
     {
-        if ($digit > $this->getBoundary())
-        {
+        if ($digit > $this->getBoundary()) {
             throw new OffBoundaryException("Digit {$digit} is bigger than permitted boundary {$this->getBoundary()}");
         }
 

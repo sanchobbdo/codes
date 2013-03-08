@@ -15,19 +15,6 @@ class CoderTest extends \PHPUnit_Framework_TestCase
         ));
     }
 
-    public function testConfigTreeBuilder()
-    {
-        $treeBuilder = $this->coder->getConfigTreeBuilder();
-
-        $this->assertInstanceOf(
-            '\\Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder',
-            $treeBuilder
-        );
-
-        $tree = $treeBuilder->buildTree();
-        $this->assertArrayHasKey('secret_key', $tree->getChildren());
-    }
-
     public function tetsSecretKeyGetter()
     {
         $this->assertEquals($this->secretKey, $this->coder->getSecretKey());
@@ -61,7 +48,6 @@ class CoderTest extends \PHPUnit_Framework_TestCase
             array(20, '000k05ce1b'),
         );
     }
-
 
     /**
      * @expectedException \SanchoBBDO\Codes\Exception\OffBoundaryException

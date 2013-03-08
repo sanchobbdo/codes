@@ -4,7 +4,7 @@ namespace SanchoBBDO\Codes\Coder;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-interface CoderInterface extends ConfigurationInterface
+interface CoderInterface
 {
     public function __construct($config = array());
     public function encode($digit);
