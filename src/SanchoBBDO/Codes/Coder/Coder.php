@@ -23,29 +23,49 @@ class Coder implements CoderInterface
             throw new OffBoundaryException("Digit {$digit} is bigger than permitted boundary {$this->getBoundary()}");
         }
 
-        $key = Utils::base36Encode($digit);
-        $key = Utils::zerofill($key, 4);
+        $key = $this->digitToKey($digit);
+        $mac = $this->encrypt($key);
 
-        return $key.substr($this->encrypt($key), 0, 6);
+        return $this->composeCode($key, $mac);
     }
 
     public function isValid($code)
     {
         list($digit, $mac) = $this->parse($code);
+
         return $this->encode($digit) == $code;
     }
 
     public function parse($code)
     {
-        return array(
-            Utils::base36Decode(substr($code, 0, 4)),
-            substr($code, 4)
-        );
+        list($key, $mac) = $this->splitCode($code);
+
+        return array($this->keyToDigit($key), $mac);
     }
 
     public function getBoundary()
     {
         return pow(36, 4);
+    }
+
+    protected function digitToKey($digit)
+    {
+        return Utils::zerofill(Utils::base36Encode($digit), 4);
+    }
+
+    protected function keyToDigit($key)
+    {
+        return Utils::base36Decode($key);
+    }
+
+    protected function splitCode($code)
+    {
+        return array(substr($code, 0, 4), substr($code, 4));
+    }
+
+    protected function composeCode($key, $mac)
+    {
+        return $key.substr($mac, 0, 6);
     }
 
     protected function encrypt($key)
