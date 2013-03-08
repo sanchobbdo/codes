@@ -77,7 +77,7 @@ class Coder implements CoderInterface
 
     protected function encrypt($key)
     {
-        return sha1($key.$this->getSecretKey());
+        return hash_hmac('sha1', $key, $this->getSecretKey());
     }
 
     public function getSecretKey()
