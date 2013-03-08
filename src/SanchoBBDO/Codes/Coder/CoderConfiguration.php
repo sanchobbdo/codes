@@ -24,6 +24,12 @@ class CoderConfiguration implements ConfigurationInterface
                     ->min(1)
                     ->defaultValue(4)
                 ->end()
+                ->scalarNode('algo')
+                    ->defaultValue('sha1')
+                    ->validate()
+                    ->ifNotInArray(hash_algos())
+                        ->thenInvalid('Invalid algo "%s"')
+                ->end()
             ->end();
         return $treeBuilder;
     }

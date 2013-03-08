@@ -89,4 +89,30 @@ class CoderConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = $this->processConfiguration(array('secret_key' => 'adasda'));
         $this->assertEquals(4, $config['key_length']);
     }
+
+    public function testAlgoAcceptsValuesInHashAlgos()
+    {
+        try {
+            foreach (hash_algos() as $algo)
+            {
+                $config = $this->processConfiguration(array('secret_key' => 'sdfsadf', 'algo' => $algo));
+            }
+        } catch(\Exception $e) {
+            $this->fail("{$algo} was rejected");
+        }
+    }
+
+    /**
+     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testAlgoRejectsValuesNotInHashAlgo()
+    {
+        $this->processConfiguration(array('secret_key' => 'asdsadas', 'algo' => 'notvalied'));
+    }
+
+    public function testAlgoDefaultValueIsSha1()
+    {
+        $config = $this->processConfiguration(array('secret_key' => 'dsadas'));
+        $this->assertEquals('sha1', $config['algo']);
+    }
 }
