@@ -2,6 +2,7 @@
 
 namespace SanchoBBDO\Codes\Coder;
 
+use SanchoBBDO\Codes\Exception\OffBoundaryException;
 use SanchoBBDO\Codes\Utils;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Processor;
@@ -34,6 +35,11 @@ class Coder implements CoderInterface
 
     public function encode($digit)
     {
+        if ($digit > $this->getBoundary())
+        {
+            throw new OffBoundaryException("Digit {$digit} is bigger than permitted boundary {$this->getBoundary()}");
+        }
+
         $key = Utils::base36Encode($digit);
         $key = Utils::zerofill($key, 4);
 

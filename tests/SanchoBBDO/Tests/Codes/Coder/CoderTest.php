@@ -58,9 +58,17 @@ class CoderTest extends \PHPUnit_Framework_TestCase
         return array(
             array(123456, '2n9c00d7a3'),
             array(900000, 'jag0bf80a5'),
-            array(16000000, '9ixogf2ef8a'),
             array(20, '000k05ce1b'),
         );
+    }
+
+
+    /**
+     * @expectedException \SanchoBBDO\Codes\Exception\OffBoundaryException
+     */
+    public function testEncodeThrowsExceptionIfOffBoundaryDigitIsPassed()
+    {
+        $this->coder->encode($this->coder->getBoundary() + 10);
     }
 
     /**
