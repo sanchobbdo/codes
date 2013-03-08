@@ -7,17 +7,24 @@ use SanchoBBDO\Codes\Coder\Coder;
 class CoderTest extends \PHPUnit_Framework_TestCase
 {
     protected $secretKey = '1461932c2e74b726c795742e1caa8b4a281ea09c';
+    protected $macLength = 6;
 
     public function setUp()
     {
         $this->coder = new Coder(array(
-            'secret_key' => $this->secretKey
+            'secret_key' => $this->secretKey,
+            'mac_length' => $this->macLength
         ));
     }
 
     public function tetsSecretKeyGetter()
     {
         $this->assertEquals($this->secretKey, $this->coder->getSecretKey());
+    }
+
+    public function testMacLengthGetter()
+    {
+        $this->assertEquals($this->macLength, $this->coder->getMacLength());
     }
 
     public function testParseReturnsCodesDigitAndMac()

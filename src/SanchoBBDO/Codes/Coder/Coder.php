@@ -10,11 +10,13 @@ use Symfony\Component\Config\Definition\Processor;
 class Coder implements CoderInterface
 {
     private $secretKey;
+    private $macLength;
 
     public function __construct($config = array())
     {
         $config = Utils::processConfig(new CoderConfiguration, $config);
         $this->setSecretKey($config['secret_key']);
+        $this->setMacLength($config['mac_length']);
     }
 
     public function encode($digit)
@@ -65,7 +67,7 @@ class Coder implements CoderInterface
 
     protected function composeCode($key, $mac)
     {
-        return $key.substr($mac, 0, 6);
+        return $key.substr($mac, 0, $this->getMacLength());
     }
 
     protected function encrypt($key)
@@ -78,8 +80,18 @@ class Coder implements CoderInterface
         return $this->secretKey;
     }
 
+    public function getMacLength()
+    {
+        return $this->macLength;
+    }
+
     protected function setSecretKey($secretKey)
     {
         $this->secretKey = $secretKey;
+    }
+
+    protected function setMacLength($macLength)
+    {
+        $this->macLength = $macLength;
     }
 }
