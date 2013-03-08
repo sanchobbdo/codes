@@ -46,21 +46,22 @@ class CoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1679616, $this->coder->getBoundary());
     }
 
-    /**
-     * @dataProvider digitsAndCodesProvider
-     */
-    public function testEncode($digit, $code)
+    public function testEncodeAndValidate()
     {
-        $this->assertEquals($code, $this->coder->encode($digit));
+        for ($i = 100; $i < 120; $i++) {
+            $code = $this->coder->encode($i);
+            $this->assertNotEmpty($code);
+            $this->assertEquals($this->macLength + $this->keyLength, strlen($code));
+            $this->assertTrue($this->coder->isValid($code));
+        }
     }
 
-    public function digitsAndCodesProvider()
+    public function testIsValidRejectInvalidCodes()
     {
-        return array(
-            array(123456, '2n9c00d7a3'),
-            array(900000, 'jag0bf80a5'),
-            array(20, '000k05ce1b'),
-        );
+        for ($i = 0; $i < 20; $i++) {
+            $code = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $this->macLength + $this->keyLength);
+            $this->assertFalse($this->coder->isValid($code));
+        }
     }
 
     /**
@@ -69,27 +70,5 @@ class CoderTest extends \PHPUnit_Framework_TestCase
     public function testEncodeThrowsExceptionIfOffBoundaryDigitIsPassed()
     {
         $this->coder->encode($this->coder->getBoundary() + 10);
-    }
-
-    /**
-     * @dataProvider codesAndValidityProvider
-     */
-    public function testIsValid($code, $assert)
-    {
-        $this->assertEquals($assert, $this->coder->isValid($code));
-    }
-
-    public function codesAndValidityProvider()
-    {
-        return array(
-            array('002s80e8d8', true),
-            array('002s652139', false),
-            array('00rsd9a978', true),
-            array('00rsd9a976', false),
-            array('07psb2d7e8', true),
-            array('07psb257e8', false),
-            array('lfls35d29f', true),
-            array('5yc1sb94dc3', false)
-        );
     }
 }
