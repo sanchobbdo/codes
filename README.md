@@ -43,6 +43,7 @@ $codes = Codes::from(array(
         'secret_key' => 'secret-key',    // Coder secret key
         'key_length' => 4,               // Code's key length
         'mac_length' => 6,               // Code's mac length
+        'algo'       => 'sha1'           // Hash hmac algorithm
     )
 ));
 ```
@@ -51,6 +52,13 @@ The default coder generates codes composed of a _key_ and a _mac_; the key
 helps to identify the code while the mac is the signature which
 validates it. The ```mac_length``` and ```key_length``` determine how long the
 code will be.
+
+The _mac_ is generated using the
+[hash_hmac](http://php.net/manual/en/function.hash-hmac.php) php
+function. The algorithm used is determined by ```algo```. To see
+available algorithms check the
+[hash_algos](http://www.php.net/manual/en/function.hash-algos.php) php
+function.
 
 Validating codes
 ----------------
