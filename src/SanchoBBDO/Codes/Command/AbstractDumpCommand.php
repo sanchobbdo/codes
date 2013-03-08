@@ -19,7 +19,6 @@ abstract class AbstractDumpCommand extends Command
     public function configure()
     {
         $this->init();
-
         $this
             ->addArgument(
                 'config',
@@ -31,16 +30,12 @@ abstract class AbstractDumpCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            $configFile = $input->getArgument('config');
-
-            if ($configFile) {
-                $config = Utils::object2array(Config::i()->load($input->getArgument('config')));
+            if ($configFile = $input->getArgument('config')) {
+                $config = Utils::object2array(Config::i()->load($configFile));
                 $this->setCodes(Codes::from($config));
             }
 
-            $codes = $this->getCodes();
-
-            if (!$codes) {
+            if (!$codes = $this->getCodes()) {
                 throw new \Exception("Not enough arguments.");
             }
 

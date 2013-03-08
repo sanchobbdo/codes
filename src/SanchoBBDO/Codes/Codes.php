@@ -2,9 +2,7 @@
 
 namespace SanchoBBDO\Codes;
 
-use SanchoBBDO\Codes\Coder\Coder;
 use SanchoBBDO\Codes\Coder\CoderInterface;
-use Symfony\Component\Config\Definition\Processor;
 
 class Codes implements \Iterator
 {

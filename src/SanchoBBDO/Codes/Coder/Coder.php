@@ -4,8 +4,6 @@ namespace SanchoBBDO\Codes\Coder;
 
 use SanchoBBDO\Codes\Exception\OffBoundaryException;
 use SanchoBBDO\Codes\Utils;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\Processor;
 
 class Coder implements CoderInterface
 {
