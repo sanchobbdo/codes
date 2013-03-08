@@ -14,8 +14,7 @@ class Coder implements CoderInterface
     public function __construct($config = array())
     {
         $config = Utils::processConfig(new CoderConfiguration, $config);
-
-        $this->secretKey = $config['secret_key'];
+        $this->setSecretKey($config['secret_key']);
     }
 
     public function encode($digit)
@@ -57,5 +56,10 @@ class Coder implements CoderInterface
     public function getSecretKey()
     {
         return $this->secretKey;
+    }
+
+    protected function setSecretKey($secretKey)
+    {
+        $this->secretKey = $secretKey;
     }
 }
