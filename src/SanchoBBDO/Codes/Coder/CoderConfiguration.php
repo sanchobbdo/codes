@@ -16,6 +16,10 @@ class CoderConfiguration implements ConfigurationInterface
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
+                ->integerNode('mac_length')
+                    ->min(1)
+                    ->defaultValue(6)
+                ->end()
             ->end();
         return $treeBuilder;
     }
