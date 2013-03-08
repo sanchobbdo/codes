@@ -44,6 +44,13 @@ class Utils
         return $data;
     }
 
+    static public function arrayGetAndUnsetKey(&$array, $key)
+    {
+        $return = $array[$key];
+        unset($array[$key]);
+        return $return;
+    }
+
     static public function processConfig(ConfigurationInterface $configuration, array $config)
     {
         $processor = new Processor();
