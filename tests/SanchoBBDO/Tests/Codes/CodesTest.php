@@ -72,4 +72,12 @@ class CodesTest extends CodesTestCase
         $codes = new Codes($this->coder, 10);
         $this->assertEquals($this->coder->getBoundary() - 10, $codes->getLimit());
     }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testShouldThrowExceptionIfLimitIsGreaterThanPermitted()
+    {
+        new Codes($this->coder, 0, $this->coder->getBoundary() + 10);
+    }
 }

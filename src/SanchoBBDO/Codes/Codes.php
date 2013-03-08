@@ -89,8 +89,12 @@ class Codes implements \Iterator
 
     protected function setLimit($limit = null)
     {
-        if (null === $limit) {
-            $limit = $this->getCoder()->getBoundary() - $this->getOffset();
+        $boundary = $this->getCoder()->getBoundary();
+        $offset   = $this->getOffset();
+        $limit    = $limit ?: $boundary - $offset;
+
+        if ($limit + $offset > $boundary) {
+            throw new \Exception("Passed limit {$limit} exceeds permited boundary {$boundary}");
         }
 
         $this->limit = $limit;
