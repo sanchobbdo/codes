@@ -4,13 +4,14 @@ namespace SanchoBBDO\Tests\Codes\Command;
 
 use SanchoBBDO\Codes\Command\AbstractDumpCommand;
 use SanchoBBDO\Tests\Codes\Fixture\DumpCommandFixture;
+use SanchoBBDO\Tests\Codes\CodesFactory;
 
 class AbstractDumpCommandTest extends CommandTestCase
 {
     protected function createCommand()
     {
         $this->writer = $this->getMock('\\SanchoBBDO\\Codes\\DumpWriter\\DumpWriterInterface');
-        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand');
+        $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand', array('dump'));
         $command
             ->expects($this->any())
             ->method('getDumpWriter')
@@ -19,41 +20,35 @@ class AbstractDumpCommandTest extends CommandTestCase
         return $command;
     }
 
-    public function testSetsDumpAsNameIfActionIsNotDeclared()
+    public function testCodesGetterAndSetter()
     {
-        $this->assertEquals('dump', $this->command->getName());
+        $codes = CodesFactory::createCodes();
+
+        $this->command->setCodes($codes);
+        $this->assertEquals($codes, $this->command->getCodes());
     }
 
-    public function testSetNameAsDumpSemicolonActionIFActionIsDeclared()
+    public function testDisplayErrorIfNoCodesAreSet()
     {
-        $command = new DumpCommandFixture;
-        $this->assertEquals('dump:test', $command->getName());
+        $output = $this->executeCommand(array());
+        $this->assertContains('enough arguments', $output);
     }
 
-    public function testSetActionSetName()
+    public function testConfigArgument()
     {
-        $this->command->setAction('my-action');
-        $this->assertEquals("dump:my-action", $this->command->getName());
+        $this->assertInputArgument('config', false);
     }
 
-    public function testSecretKeyOption()
+    public function testLoadsAndUsesConfigFile()
     {
-        $this->assertInputOption('secret-key', 'k', true, true);
+        $this->executeDefaultCommnad();
+        $this->assertInstanceOf('\\SanchoBBDO\\Codes\\Codes', $this->command->getCodes());
     }
 
-    public function testSecretKeyOptionIsRequired()
+    public function testNotifiesIfFileWasNotFound()
     {
-        $this->assertRegExp('/secret key/i', $this->executeCommand());
-    }
-
-    public function testOffsetOption()
-    {
-        $this->assertInputOption('offset', 'f', true, true);
-    }
-
-    public function testLimitOption()
-    {
-        $this->assertInputOption('limit', 'l', true, true);
+        $output = $this->executeCommand(array('config' => 'idontexist.yaml'));
+        $this->assertContains('Unable' , $output);
     }
 
     public function testCallsGetDumpWriterOnExecute()
@@ -81,23 +76,5 @@ class AbstractDumpCommandTest extends CommandTestCase
                 ->method('close');
 
         $this->executeDefaultCommnad();
-    }
-
-    public function testGetInputReturnsCommandInput()
-    {
-        $this->executeDefaultCommnad();
-        $this->assertInstanceOf(
-            'Symfony\\Component\\Console\\Input\\InputInterface',
-            $this->command->getInput()
-        );
-    }
-
-    public function testGetOutputReturnsCommandOutput()
-    {
-        $this->executeDefaultCommnad();
-        $this->assertInstanceOf(
-            'Symfony\\Component\\Console\\Output\\OutputInterface',
-            $this->command->getOutput()
-        );
     }
 }

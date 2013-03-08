@@ -8,12 +8,7 @@ use SanchoBBDO\Codes\Command\DumpTextCommand;
 class DumpTextCommandTest extends CommandTestCase
 {
     protected function createCommand() {
-        return new DumpTextCommand;
-    }
-
-    public function testActionIsTxt()
-    {
-        $this->assertEquals('txt', $this->command->getAction());
+        return new DumpTextCommand('dump');
     }
 
     public function testFileArgument()
@@ -27,11 +22,7 @@ class DumpTextCommandTest extends CommandTestCase
         $file = 'dump.txt';
         $filePath = vfsStream::url("dump/{$file}");
 
-        $this->executeCommand(array(
-            '--secret-key' => 'dum',
-            '--limit' => 10,
-            'file' => $filePath
-        ));
+        $this->executeDefaultCommnad(array('file' => $filePath));
 
         $this->assertNotEmpty(file_get_contents($filePath));
     }

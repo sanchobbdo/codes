@@ -27,4 +27,17 @@ class Utils
     {
         return str_pad($str, $length, '0', STR_PAD_LEFT);
     }
+
+    static public function object2array($data)
+    {
+        if (is_array($data) || is_object($data))
+        {
+            $result = array();
+            foreach ($data as $key => $value) {
+                $result[$key] = self::object2array($value);
+            }
+            return $result;
+        }
+        return $data;
+    }
 }
