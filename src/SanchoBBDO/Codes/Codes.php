@@ -16,9 +16,7 @@ class Codes implements \Iterator
 
     public static function from($config = array())
     {
-        $processor = new Processor();
-        $configuration = new CodesConfiguration();
-        $config = $processor->processConfiguration($configuration, array($config));
+        $config = Utils::processConfig(new CodesConfiguration(), $config);
 
         $coderClass = $config['coder']['class'];
         unset($config['coder']['class']);
