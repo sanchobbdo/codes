@@ -9,6 +9,7 @@ class CoderTest extends \PHPUnit_Framework_TestCase
     protected $secretKey = '1461932c2e74b726c795742e1caa8b4a281ea09c';
     protected $macLength = 6;
     protected $keyLength = 4;
+    protected $algo = 'sha1';
 
     public function setUp()
     {
@@ -32,6 +33,11 @@ class CoderTest extends \PHPUnit_Framework_TestCase
     public function testKeyLengthGetter()
     {
         $this->assertEquals($this->keyLength, $this->coder->getKeyLength());
+    }
+
+    public function testGetAlgoGetter()
+    {
+        $this->assertEquals($this->algo, $this->coder->getAlgo());
     }
 
     public function testParseReturnsCodesDigitAndMac()

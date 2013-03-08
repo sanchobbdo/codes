@@ -12,6 +12,7 @@ class Coder implements CoderInterface
     private $secretKey;
     private $macLength;
     private $keyLength;
+    private $algo;
 
     public function __construct($config = array())
     {
@@ -19,6 +20,7 @@ class Coder implements CoderInterface
         $this->setSecretKey($config['secret_key']);
         $this->setMacLength($config['mac_length']);
         $this->setKeyLength($config['key_length']);
+        $this->setAlgo($config['algo']);
     }
 
     public function encode($digit)
@@ -77,7 +79,7 @@ class Coder implements CoderInterface
 
     protected function encrypt($key)
     {
-        return hash_hmac('sha1', $key, $this->getSecretKey());
+        return hash_hmac($this->getAlgo(), $key, $this->getSecretKey());
     }
 
     public function getSecretKey()
@@ -95,6 +97,11 @@ class Coder implements CoderInterface
         return $this->keyLength;
     }
 
+    public function getAlgo()
+    {
+        return $this->algo;
+    }
+
     protected function setSecretKey($secretKey)
     {
         $this->secretKey = $secretKey;
@@ -108,5 +115,10 @@ class Coder implements CoderInterface
     protected function setKeyLength($keyLength)
     {
         $this->keyLength = $keyLength;
+    }
+
+    protected function setAlgo($algo)
+    {
+        $this->algo = $algo;
     }
 }
