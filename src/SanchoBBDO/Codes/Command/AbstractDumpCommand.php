@@ -2,9 +2,10 @@
 
 namespace SanchoBBDO\Codes\Command;
 
+use Exporter\Handler;
 use Jasny\Config;
 use SanchoBBDO\Codes\Codes;
-use SanchoBBDO\Codes\CodesDumper;
+use SanchoBBDO\Codes\CodesSource;
 use SanchoBBDO\Codes\Utils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -39,12 +40,10 @@ abstract class AbstractDumpCommand extends Command
                 throw new \Exception("Not enough arguments.");
             }
 
-            $dumper = new CodesDumper(
-                $codes,
-                $this->getDumpWriter($input, $output)
-            );
-
-            $dumper->dump();
+            Handler::create(
+                new CodesSource($codes),
+                $this->getWriter($input, $output)
+            )->export();
         } catch (\Exception $e) {
             $output->writeln('<error>'.$e->getMessage().'</error>');
             return 1;
@@ -63,5 +62,5 @@ abstract class AbstractDumpCommand extends Command
 
     abstract protected function init();
 
-    abstract protected function getDumpWriter(InputInterface $input, OutputInterface $output);
+    abstract protected function getWriter(InputInterface $input, OutputInterface $output);
 }

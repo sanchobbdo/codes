@@ -10,11 +10,11 @@ class AbstractDumpCommandTest extends CommandTestCase
 {
     protected function createCommand()
     {
-        $this->writer = $this->getMock('\\SanchoBBDO\\Codes\\DumpWriter\\DumpWriterInterface');
+        $this->writer = $this->getMock('\\Exporter\\Writer\\WriterInterface');
         $command = $this->getMockForAbstractClass('\\SanchoBBDO\\Codes\\Command\\AbstractDumpCommand', array('dump'));
         $command
             ->expects($this->any())
-            ->method('getDumpWriter')
+            ->method('getWriter')
             ->will($this->returnValue($this->writer));
 
         return $command;
@@ -55,7 +55,7 @@ class AbstractDumpCommandTest extends CommandTestCase
     {
         $this->command
                 ->expects($this->once())
-                ->method('getDumpWriter')
+                ->method('getWriter')
                 ->will($this->returnValue($this->writer));
         $this->executeDefaultCommnad();
     }
