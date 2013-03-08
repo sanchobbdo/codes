@@ -8,23 +8,11 @@ use Symfony\Component\Config\Definition\Processor;
 
 class Codes implements \Iterator
 {
-    private static $defaultCoderClass = '\\SanchoBBDO\\Codes\\Coder\\Coder';
-
     private $coder;
     private $offset;
     private $limit;
 
     protected $position;
-
-    public static function setDefaultCoderClass($className)
-    {
-        self::$defaultCoderClass = $className;
-    }
-
-    public static function getDefaultCoderClass()
-    {
-        return self::$defaultCoderClass;
-    }
 
     public static function from($config = array())
     {
@@ -32,12 +20,10 @@ class Codes implements \Iterator
         $configuration = new CodesConfiguration();
         $config = $processor->processConfiguration($configuration, array($config));
 
-        $coderClass = !empty($config['coder']['class']) ?
-            $config['coder']['class'] : self::getDefaultCoderClass();
-
+        $coderClass = $config['coder']['class'];
         unset($config['coder']['class']);
-        $coder = new $coderClass($config['coder']);
 
+        $coder = new $coderClass($config['coder']);
         $codes = new Codes($coder, $config['offset'], $config['limit']);
 
         return $codes;
