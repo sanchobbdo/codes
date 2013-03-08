@@ -25,23 +25,39 @@ Then download composer.phar and run the install command:
 curl -s http://getcomposer.org/installer | php && ./composer.phar install
 ```
 
-Validating codes
-----------------
+Initialize
+----------
 
 ```php
 // Include composer's autoload
 require 'vendor/autoload.php';
 
-// Use coder
-use SanchoBBDO\Codes\Coder\Coder;
+// Use codes
+use SanchoBBDO\Codes\Codes;
 
-// Init a coder instance providing a secret key
-$coder = new Coder(array(
-    'secret_key' => 'your-ultra-secret-key'
+// Create a Codes instance using the 'from' factory method
+$codes = Codes::from(array(
+    'offset'     => 100,         // Start from
+    'limit'      => 1000,        // How many codes to generate
+    'coder'      => array(       // Coder settings
+        'secret_key' => 'secret-key',    // Coder secret key
+        'key_length' => 4,               // Code's key length
+        'mac_length' => 6,               // Code's mac length
+    )
 ));
+```
 
-// Validate the given code
-if ($coder->isValid($_POST['code'])) {
+The default coder generates codes composed of a _key_ and a _mac_; the key
+helps to identify the code while the mac is the signature which
+validates it. The ```mac_length``` and ```key_length``` determine how long the
+code will be.
+
+Validating codes
+----------------
+
+```php
+// Validate the given code using the coder
+if ($codes->getCoder()->isValid($_POST['code'])) {
     // Do something on success
 } else {
     // Do something on failure
@@ -60,7 +76,9 @@ Create a config file somewhere in your project:
 offset: 0,
 limit: 1000,
 coder:
-  secret_key: your-secret-key
+  secret_key: your-secret-key,
+  key_length: 4,
+  mac_length: 6
 ```
 
 From your project root:
@@ -78,23 +96,12 @@ From your project root:
 From code:
 
 ```php
-// Include composer's autoload
-require 'vendor/autoload.php';
-
-// Use SanchoBBDO Codes' classes
-use SanchoBBDO\Codes\Codes;
+// Must include some extra classes
 use SanchoBBDO\Codes\CodesDumper;
 use SanchoBBDO\Codes\DumpWriter\TextDumpWriter;
+```
 
-// Init a codes instance using the 'from' method
-$codes = Codes::from(array(
-    'offset'     => 100,         // Start from
-    'limit'      => 1000,        // How many codes to generate
-    'coder'      => array(       // Coder settings
-        'secret_key' => 'secret-key'    // Coder secret key
-    )
-));
-
+```php
 // Init a dump writer
 //
 // Available writers:
