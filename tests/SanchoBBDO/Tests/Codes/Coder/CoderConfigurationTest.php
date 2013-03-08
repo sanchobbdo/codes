@@ -61,4 +61,32 @@ class CoderConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = $this->processConfiguration(array('secret_key' => 'adasda'));
         $this->assertEquals(6, $config['mac_length']);
     }
+
+    /**
+     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testKeyLengthMustBeInt()
+    {
+        $this->processConfiguration(array(
+            'secret_key' => 'adasda',
+            'key_length' => 'dsadas'
+        ));
+    }
+
+    /**
+     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testKeyLengthMustBeGreaterThan1()
+    {
+        $this->processConfiguration(array(
+            'secret_key' => 'adasda',
+            'key_length' => 0
+        ));
+    }
+
+    public function testKeyLengthDefaultIs4()
+    {
+        $config = $this->processConfiguration(array('secret_key' => 'adasda'));
+        $this->assertEquals(4, $config['key_length']);
+    }
 }

@@ -20,6 +20,10 @@ class CoderConfiguration implements ConfigurationInterface
                     ->min(1)
                     ->defaultValue(6)
                 ->end()
+                ->integerNode('key_length')
+                    ->min(1)
+                    ->defaultValue(4)
+                ->end()
             ->end();
         return $treeBuilder;
     }
