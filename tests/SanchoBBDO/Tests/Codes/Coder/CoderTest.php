@@ -39,6 +39,12 @@ class CoderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $digit);
         $this->assertEquals('abcdef', $mac);
     }
+
+    public function testGetBoundary()
+    {
+        $this->assertEquals(1679616, $this->coder->getBoundary());
+    }
+
     /**
      * @dataProvider digitsAndCodesProvider
      */

@@ -10,4 +10,5 @@ interface CoderInterface extends ConfigurationInterface
     public function encode($digit);
     public function isValid($code);
     public function parse($code);
+    public function getBoundary();
 }

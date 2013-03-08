@@ -54,6 +54,11 @@ class Coder implements CoderInterface
         );
     }
 
+    public function getBoundary()
+    {
+        return pow(36, 4);
+    }
+
     protected function encrypt($key)
     {
         return sha1($key.$this->getSecretKey());
