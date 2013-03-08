@@ -28,7 +28,7 @@ class CoderTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('secret_key', $tree->getChildren());
     }
 
-    public function setsSecretKeyGetter()
+    public function tetsSecretKeyGetter()
     {
         $this->assertEquals($this->secretKey, $this->coder->getSecretKey());
     }
