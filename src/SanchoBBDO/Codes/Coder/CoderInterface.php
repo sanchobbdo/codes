@@ -2,8 +2,6 @@
 
 namespace SanchoBBDO\Codes\Coder;
 
-use Symfony\Component\Config\Definition\ConfigurationInterface;
-
 interface CoderInterface
 {
     public function __construct($config = array());
