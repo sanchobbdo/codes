@@ -4,6 +4,7 @@ namespace SanchoBBDO\Codes\Command;
 
 use Jasny\Config;
 use SanchoBBDO\Codes\Codes;
+use SanchoBBDO\Codes\CodesBuilder;
 use SanchoBBDO\Codes\CodesDumper;
 use SanchoBBDO\Codes\Utils;
 use Symfony\Component\Console\Command\Command;
@@ -32,7 +33,7 @@ abstract class AbstractDumpCommand extends Command
         try {
             if ($configFile = $input->getArgument('config')) {
                 $config = Utils::object2array(Config::i()->load($configFile));
-                $this->setCodes(Codes::from($config));
+                $this->setCodes(CodesBuilder::buildCodes($config));
             }
 
             if (!$codes = $this->getCodes()) {

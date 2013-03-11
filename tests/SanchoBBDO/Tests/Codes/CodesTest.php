@@ -7,23 +7,6 @@ use SanchoBBDO\Codes\Coder\Coder;
 
 class CodesTest extends CodesTestCase
 {
-    public function testFromGeneratesACodesInstanceFromConfig()
-    {
-        $config = array(
-            'offset' => 100,
-            'limit' => 2000,
-            'coder' => array(
-                'secret_key' => 'secret-key'
-            )
-        );
-
-        $codes = Codes::from($config);
-        $this->assertInstanceOf('\\SanchoBBDO\\Codes\\Codes', $codes);
-        $this->assertEquals($config['offset'], $codes->getOffset());
-        $this->assertEquals($config['limit'], $codes->getLimit());
-        $this->assertEquals($config['coder']['secret_key'], $codes->getCoder()->getSecretKey());
-    }
-
     public function testIterator()
     {
         $i = $this->codes->getOffset();

@@ -32,11 +32,11 @@ Initialize
 // Include composer's autoload
 require 'vendor/autoload.php';
 
-// Use codes
-use SanchoBBDO\Codes\Codes;
+// Include codes builder
+use SanchoBBDO\Codes\CodesBuilder;
 
-// Create a Codes instance using the 'from' factory method
-$codes = Codes::from(array(
+// Create a Codes instance using the CodesBuilder.
+$codes = CodesBuilder::buildCodes(array(
     'offset'     => 100,         // Start from
     'limit'      => 1000,        // How many codes to generate
     'coder'      => array(       // Coder settings
