@@ -2,16 +2,15 @@
 
 namespace SanchoBBDO\Codes\Command;
 
-use Jasny\Config;
 use SanchoBBDO\Codes\Codes;
 use SanchoBBDO\Codes\CodesBuilder;
 use SanchoBBDO\Codes\CodesDumper;
-use SanchoBBDO\Codes\Utils;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Yaml\Yaml;
 
 abstract class AbstractDumpCommand extends Command
 {
@@ -31,9 +30,8 @@ abstract class AbstractDumpCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            if ($configFile = $input->getArgument('config')) {
-                $config = Utils::object2array(Config::i()->load($configFile));
-                $this->setCodes(CodesBuilder::buildCodes($config));
+            if ($configPath = $input->getArgument('config')) {
+                $this->loadFromConfig($configPath);
             }
 
             if (!$codes = $this->getCodes()) {
@@ -50,6 +48,16 @@ abstract class AbstractDumpCommand extends Command
             $output->writeln('<error>'.$e->getMessage().'</error>');
             return 1;
         }
+    }
+
+    private function loadFromConfig($path)
+    {
+        if (!is_file($path)) {
+            throw new \Exception("Unable to open file {$path}");
+        }
+
+        $config = Yaml::parse($path);
+        $this->setCodes(CodesBuilder::buildCodes($config));
     }
 
     public function setCodes(Codes $codes)

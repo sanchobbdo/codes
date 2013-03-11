@@ -93,10 +93,10 @@ From your project root:
 
 ```bash
 # Dump to screen
-./vendor/bin/codes dump your/config/file.json
+./vendor/bin/codes dump your/config/file.yaml
 
 # Dump to txt file
-./vendor/bin/codes dump:txt your/config/file.yml dump.txt
+./vendor/bin/codes dump:txt dump.txt your/config/file.yml
 ```
 
 ---
