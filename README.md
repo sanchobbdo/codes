@@ -114,7 +114,7 @@ use SanchoBBDO\Codes\CodesSource;
 
 ```php
 $codesSource = new CodesSource($codes);
-$writer = new CsvWriter('your-file.csv);
+$writer = new CsvWriter('your-file.csv');
 Handler::create($codesSource, $writer)->export();
 ```
 
