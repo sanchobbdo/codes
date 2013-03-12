@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author  Camilo Aguilar <camiloaguilar@sanchobbdo.com.co>
+ * @license MIT http://opensource.org/licenses/MIT
+ * @link    https://github.com/sanchobbdo/codes
+ */
+
 namespace SanchoBBDO\Codes;
 
 use SanchoBBDO\Codes\Coder\CoderInterface;
@@ -12,7 +18,12 @@ class Codes implements \Iterator
 
     protected $position;
 
-    public function __construct($coder, $offset = 0, $limit = null)
+    /**
+     * @param Coder\CoderInterface
+     * @param int
+     * @param int
+     */
+    public function __construct(CoderInterface $coder, $offset = 0, $limit = null)
     {
         $this->setCoder($coder);
         $this->setOffset($offset);
@@ -50,16 +61,25 @@ class Codes implements \Iterator
         return $this->coder;
     }
 
+    /**
+     * @return int
+     */
     public function getOffset()
     {
         return $this->offset;
     }
 
+    /**
+     * @return int
+     */
     public function getLimit()
     {
         return $this->limit;
     }
 
+    /**
+     * @return int
+     */
     public function getLastKey()
     {
         return $this->getOffset() + $this->getLimit() - 1;
@@ -70,11 +90,18 @@ class Codes implements \Iterator
         $this->coder = $coder;
     }
 
+    /**
+     * @param int
+     */
     protected function setOffset($offset)
     {
         $this->offset = $offset;
     }
 
+    /**
+     * @param int
+     * @throws Exception/OffBoundaryException
+     */
     protected function setLimit($limit = null)
     {
         $boundary = $this->getCoder()->getBoundary();
