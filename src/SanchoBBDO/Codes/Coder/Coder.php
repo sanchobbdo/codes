@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author  Camilo Aguilar <camiloaguilar@sanchobbdo.com.co>
+ * @license MIT http://opensource.org/licenses/MIT
+ * @link    https://github.com/sanchobbdo/codes
+ */
+
 namespace SanchoBBDO\Codes\Coder;
 
 use SanchoBBDO\Codes\Exception\OffBoundaryException;
@@ -53,16 +59,28 @@ class Coder implements CoderInterface
         return pow(36, $this->getKeyLength());
     }
 
+    /**
+     * @param int
+     * @return string
+     */
     protected function digitToKey($digit)
     {
         return Utils::base36Encode($digit);
     }
 
+    /**
+     * @param string
+     * @return int
+     */
     protected function keyToDigit($key)
     {
         return Utils::base36Decode($key);
     }
 
+    /**
+     * @param string
+     * @return array First item is the key, second item is the mac
+     */
     protected function splitCode($code)
     {
         return array(
@@ -71,52 +89,85 @@ class Coder implements CoderInterface
         );
     }
 
+    /**
+     * @param string
+     * @param string
+     * @return string Concatenated key and mac
+     */
     protected function composeCode($key, $mac)
     {
         return Utils::zerofill($key, $this->getKeyLength()) .
                substr($mac, 0, $this->getMacLength());
     }
 
+    /**
+     * @param string
+     * @return string
+     */
     protected function encrypt($key)
     {
         return hash_hmac($this->getAlgo(), $key, $this->getSecretKey());
     }
 
+    /**
+     * @return string
+     */
     public function getSecretKey()
     {
         return $this->secretKey;
     }
 
+    /**
+     * @return string
+     */
     public function getMacLength()
     {
         return $this->macLength;
     }
 
+    /**
+     * @return string
+     */
     public function getKeyLength()
     {
         return $this->keyLength;
     }
 
+    /**
+     * @return string
+     */
     public function getAlgo()
     {
         return $this->algo;
     }
 
+    /**
+     * @param string
+     */
     protected function setSecretKey($secretKey)
     {
         $this->secretKey = $secretKey;
     }
 
+    /**
+     * @param string
+     */
     protected function setMacLength($macLength)
     {
         $this->macLength = $macLength;
     }
 
+    /**
+     * @param string
+     */
     protected function setKeyLength($keyLength)
     {
         $this->keyLength = $keyLength;
     }
 
+    /**
+     * @param string
+     */
     protected function setAlgo($algo)
     {
         $this->algo = $algo;

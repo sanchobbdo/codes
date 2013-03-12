@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author  Camilo Aguilar <camiloaguilar@sanchobbdo.com.co>
+ * @license MIT http://opensource.org/licenses/MIT
+ * @link    https://github.com/sanchobbdo/codes
+ */
+
 namespace SanchoBBDO\Codes\Command;
 
 use Exporter\Handler;
@@ -50,6 +56,12 @@ abstract class AbstractDumpCommand extends Command
         }
     }
 
+    /**
+     * Load configuration from yaml file.
+     *
+     * @param string
+     * @return array
+     */
     private function loadFromConfig($path)
     {
         if (!is_file($path)) {
@@ -65,6 +77,9 @@ abstract class AbstractDumpCommand extends Command
         $this->codes = $codes;
     }
 
+    /**
+     * @return Codes
+     */
     public function getCodes()
     {
         return $this->codes;
@@ -72,5 +87,8 @@ abstract class AbstractDumpCommand extends Command
 
     abstract protected function init();
 
+    /**
+     * @return \Exporter\Writer\WriterInterface
+     */
     abstract protected function getWriter(InputInterface $input, OutputInterface $output);
 }

@@ -1,9 +1,18 @@
 <?php
 
+/**
+ * @author  Camilo Aguilar <camiloaguilar@sanchobbdo.com.co>
+ * @license MIT http://opensource.org/licenses/MIT
+ * @link    https://github.com/sanchobbdo/codes
+ */
+
 namespace SanchoBBDO\Codes;
 
 class CodesBuilder
 {
+    /**
+     * @return Codes
+     */
     public static function buildCodes($config = array())
     {
         $config = Utils::processConfig(new CodesConfiguration(), $config);

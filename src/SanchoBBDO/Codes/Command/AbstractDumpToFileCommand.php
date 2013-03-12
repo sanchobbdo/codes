@@ -23,5 +23,8 @@ abstract class AbstractDumpToFileCommand extends AbstractDumpCommand
         return $this->getFileWriter($input->getArgument('file'), $input, $output);
     }
 
+    /**
+     * @return \Exporter\Writer\WriterIntreface;
+     */
     abstract public function getFileWriter($file, InputInterface $input, OutputInterface $output);
 }

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author  Camilo Aguilar <camiloaguilar@sanchobbdo.com.co>
+ * @license MIT http://opensource.org/licenses/MIT
+ * @link    https://github.com/sanchobbdo/codes
+ */
+
 namespace SanchoBBDO\Codes\Coder;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -7,6 +13,9 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class CoderConfiguration implements ConfigurationInterface
 {
+    /**
+     * @return Symfony\Component\Config\Definition\Builder\TreeBuilder
+     */
     public function getConfigTreeBuilder() {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('coder');
