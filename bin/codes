@@ -8,6 +8,6 @@ use Symfony\Component\Console\Application;
 
 $application = new Application();
 
-$application->add(new Commands\DumpXlsCommand('dump:xls'));
+$application->add(new Commands\DumpCsvCommand('dump:csv'));
 
 $application->run();
