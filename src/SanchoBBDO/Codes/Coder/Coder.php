@@ -15,6 +15,7 @@ class Coder implements CoderInterface
     public function __construct($config = array())
     {
         $config = Utils::processConfig(new CoderConfiguration, $config);
+
         $this->setSecretKey($config['secret_key']);
         $this->setMacLength($config['mac_length']);
         $this->setKeyLength($config['key_length']);
@@ -35,7 +36,7 @@ class Coder implements CoderInterface
 
     public function isValid($code)
     {
-        list($digit, $mac) = $this->parse($code);
+        list($digit) = $this->parse($code);
 
         return $this->encode($digit) == $code;
     }
@@ -54,7 +55,7 @@ class Coder implements CoderInterface
 
     protected function digitToKey($digit)
     {
-        return Utils::zerofill(Utils::base36Encode($digit), $this->getKeyLength());
+        return Utils::base36Encode($digit);
     }
 
     protected function keyToDigit($key)
@@ -72,7 +73,8 @@ class Coder implements CoderInterface
 
     protected function composeCode($key, $mac)
     {
-        return $key.substr($mac, 0, $this->getMacLength());
+        return Utils::zerofill($key, $this->getKeyLength()) .
+               substr($mac, 0, $this->getMacLength());
     }
 
     protected function encrypt($key)
