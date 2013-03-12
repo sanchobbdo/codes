@@ -28,7 +28,7 @@ curl -s http://getcomposer.org/installer | php && ./composer.phar install
 Initialize
 ----------
 
-```php
+```
 // Include composer's autoload
 require 'vendor/autoload.php';
 
@@ -92,37 +92,30 @@ coder:
 From your project root:
 
 ```bash
-# Dump to screen
-./vendor/bin/codes dump your/config/file.yaml
+# Dump to csv
+./vendor/bin/codes dump:csv file.csv your/config/file.yml
 
-# Dump to txt file
-./vendor/bin/codes dump:txt dump.txt your/config/file.yml
+# Dump to xls
+./vendor/bin/codes dump:xls file.xls your/config/file.yml
 ```
 
 ---
 
 From code:
 
+_Codes_ uses the [sonata-project/exporter](https://github.com/sonata-project/exporter) package, but you're free to make your own implementation. Here's an example using this package.
+
 ```php
-// Must include some extra classes
-use SanchoBBDO\Codes\CodesDumper;
-use SanchoBBDO\Codes\DumpWriter\TextDumpWriter;
+// On top of your file include required classes
+use Exporter\Handler;
+use Exporter\Writer\CsvWriter;
+use SanchoBBDO\Codes\CodesSource;
 ```
 
 ```php
-// Init a dump writer
-//
-// Available writers:
-//    Writes to stdout                  StdoutDumpWriter()
-//    Writes to symfony console output  ConsoleDumpWriter(OutputInterface $oi)
-//    Writes to a text file             TextDumpWriter($filename)
-$dumpWriter = new TextDumpWriter('your-file.txt');
-
-// Init a codes dumper passing your codes and dump writer instances
-$codesDumper = new CodesDumper($codes, $dumpWriter);
-
-// Dump!
-$codesDumper->dump();
+$codesSource = new CodesSource($codes);
+$writer = new CsvWriter('your-file.csv);
+Handler::create($codesSource, $writer)->export();
 ```
 
 Disclaimer
