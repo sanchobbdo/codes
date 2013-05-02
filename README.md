@@ -12,7 +12,7 @@ Create a composer.json file in the project root:
 ```json
 {
     "require": {
-        "sanchobbdo/codes": "dev-master"
+        "sanchobbdo/codes": "~1.0"
     }
 }
 ```
