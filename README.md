@@ -77,6 +77,15 @@ Generating codes
 
 From the command line:
 
+Install
+[symfony/console](http://symfony.com/doc/current/components/console/index.html)
+and [sonata-project/exporter](https://github.com/sonata-project/exporter)
+packages using composer:
+
+```bash
+composer require symfony/console:2.2.* sonata-project/exporter:1.2.*
+```
+
 Create a config file somewhere in your project:
 
 ```yaml
