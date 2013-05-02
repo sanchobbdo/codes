@@ -1,10 +1,8 @@
 Codes
 =====
 
-A promotional codes generator and validator.
-
-*Warning:* This package is under heavy development, it's API can change and
-it's not fully secured.
+A PHP code generator and validator. Can be use for promotions, sweepstakes,
+coupons or any other application which needs to validate a given code.
 
 Installing
 ----------
