@@ -2,12 +2,13 @@ Codes
 =====
 
 A PHP code generator and validator. Can be use for promotions, sweepstakes,
-coupons or any other application which needs to validate a given code.
+coupons or any other application which needs to validate codes provided by
+users.
 
 Installing
 ----------
 
-Create a composer.json file in the project root:
+Create a ```composer.json``` file in the project root:
 
 ```json
 {
@@ -17,7 +18,7 @@ Create a composer.json file in the project root:
 }
 ```
 
-Then download composer.phar and run the install command:
+Then download ```composer.phar``` and run the install command:
 
 ```bash
 curl -s http://getcomposer.org/installer | php && ./composer.phar install
@@ -26,7 +27,7 @@ curl -s http://getcomposer.org/installer | php && ./composer.phar install
 Initialize
 ----------
 
-```
+```php
 // Include composer's autoload
 require 'vendor/autoload.php';
 
@@ -46,17 +47,13 @@ $codes = CodesBuilder::buildCodes(array(
 ));
 ```
 
-The default coder generates codes composed of a _key_ and a _mac_; the key
-helps to identify the code while the mac is the signature which
-validates it. The ```mac_length``` and ```key_length``` determine how long the
-code will be.
+The default coder generates codes composed of a **key** and a **mac**; the
+**key** identifies codes while the **mac** is used to validate them. The
+```mac_length``` and ```key_length``` determine how long the code will be.
 
-The _mac_ is generated using the
-[hash_hmac](http://php.net/manual/en/function.hash-hmac.php) php
-function. The algorithm used is determined by ```algo```. To see
-available algorithms check the
-[hash_algos](http://www.php.net/manual/en/function.hash-algos.php) php
-function.
+The **mac** is generated using the [hash_hmac][hash_hmac] php function. The
+algorithm used is determined by ```algo```. To see available algorithms check
+the [hash_algos][hash_algos] php function.
 
 Validating codes
 ----------------
@@ -75,10 +72,8 @@ Generating codes
 
 From the command line:
 
-Install
-[symfony/console](http://symfony.com/doc/current/components/console/index.html)
-and [sonata-project/exporter](https://github.com/sonata-project/exporter)
-packages using composer:
+Install [symfony/console][symfony_console] and
+[sonata-project/exporter][sp_exporter] packages using composer:
 
 ```bash
 composer require symfony/console:2.2.* sonata-project/exporter:1.2.*
@@ -88,12 +83,13 @@ Create a config file somewhere in your project:
 
 ```yaml
 # /path/to/your/project/codes.yml
+
 offset: 0,
 limit: 1000,
 coder:
-  secret_key: your-secret-key,
-  key_length: 4,
-  mac_length: 6
+    secret_key: your-secret-key,
+    key_length: 4,
+    mac_length: 6
 ```
 
 From your project root:
@@ -110,7 +106,8 @@ From your project root:
 
 From code:
 
-_Codes_ uses the [sonata-project/exporter](https://github.com/sonata-project/exporter) package, but you're free to make your own implementation. Here's an example using this package.
+Here is an example using the [sonata-project/exporter][sp_exporter] (you can
+roll you're own implementation):
 
 ```php
 // On top of your file include required classes
@@ -140,3 +137,8 @@ Lincense
 --------
 
 Licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+[hash_hmac]: http://php.net/manual/en/function.hash-hmac.php
+[hash_algos]: http://www.php.net/manual/en/function.hash-algos.php
+[symfony_console]: http://symfony.com/doc/current/components/console/index.html
+[sp_exporter]: https://github.com/sonata-project/exporter
