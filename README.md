@@ -72,11 +72,13 @@ Generating codes
 
 From the command line:
 
-Install [symfony/console][symfony_console] and
+Install [symfony/console][s_console], [symfony/yaml][s_yaml] and
 [sonata-project/exporter][sp_exporter] packages using composer:
 
 ```bash
-composer require symfony/console:2.2.* sonata-project/exporter:1.2.*
+composer require symfony/console:2.2.* \
+                 symfony/yaml:2.2.* \
+                 sonata-project/exporter:1.2.*
 ```
 
 Create a config file somewhere in your project:
@@ -140,5 +142,6 @@ Licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
 [hash_hmac]: http://php.net/manual/en/function.hash-hmac.php
 [hash_algos]: http://www.php.net/manual/en/function.hash-algos.php
-[symfony_console]: http://symfony.com/doc/current/components/console/index.html
+[s_console]: http://symfony.com/doc/current/components/console/index.html
+[s_yaml]: http://symfony.com/doc/current/components/yaml/introduction.html
 [sp_exporter]: https://github.com/sonata-project/exporter
