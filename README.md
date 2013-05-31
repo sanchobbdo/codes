@@ -86,11 +86,11 @@ Create a config file somewhere in your project:
 ```yaml
 # /path/to/your/project/codes.yml
 
-offset: 0,
-limit: 1000,
+offset: 0
+limit: 1000
 coder:
-    secret_key: your-secret-key,
-    key_length: 4,
+    secret_key: your-secret-key
+    key_length: 4
     mac_length: 6
 ```
 
