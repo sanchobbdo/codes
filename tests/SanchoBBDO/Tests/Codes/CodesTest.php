@@ -28,11 +28,6 @@ class CodesTest extends CodesTestCase
         $this->assertEquals($this->coder, $this->codes->getCoder());
     }
 
-    public function testOffsetGetter()
-    {
-        $this->assertEquals(10, $this->codes->getOffset());
-    }
-
     public function testDefaultOffsetIs0()
     {
         $codes = new Codes($this->coder);
@@ -45,15 +40,16 @@ class CodesTest extends CodesTestCase
         $this->assertEquals(2, $codes->getOffset());
     }
 
-    public function testLimitGetter()
-    {
-        $this->assertEquals(10, $this->codes->getLimit());
-    }
-
     public function testDefaultLimitIsMaxAvailableCodes()
     {
         $codes = new Codes($this->coder, 10);
         $this->assertEquals($this->coder->getBoundary() - 10, $codes->getLimit());
+    }
+
+    public function testConstructorSetsLimit()
+    {
+        $codes = new Codes($this->coder, 0, 100);
+        $this->assertEquals(100, $codes->getLimit());
     }
 
     /**
