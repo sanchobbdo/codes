@@ -40,6 +40,15 @@ class CoderTest extends CoderImplementationTestCase
         $this->assertEquals($this->algo, $this->coder->getAlgo());
     }
 
+    /**
+     * @dataProvider  validCodesProvider
+     */
+    public function testCodesLengthIsDeterminedByKeyAndMacLength($validCode)
+    {
+        $length = $this->macLength + $this->keyLength;
+        $this->assertEquals($length, strlen($validCode));
+    }
+
     public function testParseReturnsCodesDigitAndMac()
     {
         list($digit, $mac) = $this->coder->parse('0001abcdef');
