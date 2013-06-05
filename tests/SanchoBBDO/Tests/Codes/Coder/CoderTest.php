@@ -60,12 +60,4 @@ class CoderTest extends CoderImplementationTestCase
     {
         $this->assertEquals(1679616, $this->coder->getBoundary());
     }
-
-    /**
-     * @expectedException \SanchoBBDO\Codes\Exception\OffBoundaryException
-     */
-    public function testEncodeThrowsExceptionIfOffBoundaryDigitIsPassed()
-    {
-        $this->coder->encode($this->coder->getBoundary() + 1);
-    }
 }

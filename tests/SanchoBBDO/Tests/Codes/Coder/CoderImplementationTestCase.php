@@ -63,6 +63,14 @@ abstract class CoderImplementationTestCase extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, $boundary);
     }
 
+    /**
+     * @expectedException \SanchoBBDO\Codes\Exception\OffBoundaryException
+     */
+    public function testEncodeThrowsExceptionIfOffBoundaryDigitIsPassed()
+    {
+        $this->coder->encode($this->coder->getBoundary() + 1);
+    }
+
     public function digitsProvider()
     {
         $data = array();

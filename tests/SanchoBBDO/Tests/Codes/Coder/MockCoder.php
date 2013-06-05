@@ -3,6 +3,7 @@
 namespace SanchoBBDO\Tests\Codes\Coder;
 
 use SanchoBBDO\Codes\Coder\CoderInterface;
+use SanchoBBDO\Codes\Exception\OffBoundaryException;
 
 class MockCoder implements CoderInterface
 {
@@ -13,6 +14,10 @@ class MockCoder implements CoderInterface
 
     public function encode($digit)
     {
+        if ($digit > $this->getBoundary()) {
+            throw new OffBoundaryException("Digit {$digit} is bigger than permitted boundary {$this->getBoundary()}");
+        }
+
         return "abc{$digit}";
     }
 
