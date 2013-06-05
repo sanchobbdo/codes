@@ -20,6 +20,11 @@ class Coder implements CoderInterface
 
     public function __construct($config = array())
     {
+        $this->init($config);
+    }
+
+    protected function init($config)
+    {
         $config = Utils::processConfig(new CoderConfiguration, $config);
 
         $this->setSecretKey($config['secret_key']);
