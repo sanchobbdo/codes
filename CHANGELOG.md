@@ -5,6 +5,7 @@ Changelog
 -----
 
 - Create a changelog (that's me :p).
+- Update dependencies versions.
 - Fill missing ```composer.json``` fields (tags, homepage, authors, etc).
 - Use ```MockCoder``` instead of default ```Coder``` in tests.
 - Create abstract ```CoderImplementationTestCase``` class.
