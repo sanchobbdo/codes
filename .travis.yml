@@ -14,6 +14,6 @@ before_script:
     - phpenv rehash
     - phing -v 2>&1 >/dev/null && echo "... OK" || echo "... FAILED"
     - echo -e "\nCopying build.properties ..."
-    - cp phing/build.properties.travis phing/build.propertie
+    - cp phing/build.properties.travis phing/build.properties
     - echo "... OK"
 script: phing
