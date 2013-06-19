@@ -1,4 +1,4 @@
-Codes
+Codes [![Build Status](https://travis-ci.org/sanchobbdo/codes.png)](https://travis-ci.org/sanchobbdo/codes)
 =====
 
 A PHP code generator and validator. Can be use for promotions, sweepstakes,
