@@ -8,6 +8,9 @@
 
 namespace SanchoBBDO\Codes;
 
+use SanchoBBDO\Codes\Util\Hash;
+use SanchoBBDO\Codes\Util\Config;
+
 class CodesBuilder
 {
     /**
@@ -15,9 +18,9 @@ class CodesBuilder
      */
     public static function buildCodes($config = array())
     {
-        $config = Utils::processConfig(new CodesConfiguration(), $config);
+        $config = Config::process(new CodesConfiguration(), $config);
 
-        $class = Utils::arrayGetAndUnsetKey($config['coder'], 'class');
+        $class = Hash::pull($config['coder'], 'class');
         $coder = new $class($config['coder']);
 
         return new Codes($coder, $config['offset'], $config['limit']);

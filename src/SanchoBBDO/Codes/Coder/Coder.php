@@ -9,7 +9,10 @@
 namespace SanchoBBDO\Codes\Coder;
 
 use SanchoBBDO\Codes\Exception\OffBoundaryException;
-use SanchoBBDO\Codes\Utils;
+
+use SanchoBBDO\Codes\Util\Base36;
+use SanchoBBDO\Codes\Util\Scalar;
+use SanchoBBDO\Codes\Util\Config;
 
 class Coder implements CoderInterface
 {
@@ -25,7 +28,7 @@ class Coder implements CoderInterface
 
     protected function init($config)
     {
-        $config = Utils::processConfig(new CoderConfiguration, $config);
+        $config = Config::process(new CoderConfiguration, $config);
 
         $this->setSecretKey($config['secret_key']);
         $this->setMacLength($config['mac_length']);
@@ -70,7 +73,7 @@ class Coder implements CoderInterface
      */
     protected function digitToKey($digit)
     {
-        return Utils::base36Encode($digit);
+        return Base36::encode($digit);
     }
 
     /**
@@ -79,7 +82,7 @@ class Coder implements CoderInterface
      */
     protected function keyToDigit($key)
     {
-        return Utils::base36Decode($key);
+        return Base36::decode($key);
     }
 
     /**
@@ -101,7 +104,7 @@ class Coder implements CoderInterface
      */
     protected function composeCode($key, $mac)
     {
-        return Utils::zerofill($key, $this->getKeyLength()) .
+        return Scalar::zerofill($key, $this->getKeyLength()) .
                substr($mac, 0, $this->getMacLength());
     }
 
