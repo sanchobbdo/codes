@@ -1,6 +1,16 @@
 Changelog
 =========
 
+1.0.3
+-----
+
+- Minor logic changes in Coder.
+- Continous integration with travis-ci.
+- Fixed bugs:
+    - Use Symfony/Yaml instead of php extension in CodesFactory (tests).
+    - Use class name instead of ```self``` in CodesConfiguration closure
+      to support php-5.3.
+
 1.0.2
 -----
 
