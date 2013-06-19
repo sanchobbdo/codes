@@ -46,13 +46,15 @@ class CodesConfiguration implements ConfigurationInterface
                 ->arrayNode('coder')
                     ->prototype('scalar')->end()
                     ->validate()
-                    ->always(function($v) {
-                        if (empty($v['class'])) {
-                            $v['class'] = self::getDefaultCoderClass();
-                        }
+                    ->always(
+                        function ($v) {
+                            if (empty($v['class'])) {
+                                $v['class'] = CodesConfiguration::getDefaultCoderClass();
+                            }
 
-                        return $v;
-                    })
+                            return $v;
+                        }
+                    )
                 ->end()
             ->end();
 
