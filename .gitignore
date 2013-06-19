@@ -7,5 +7,6 @@ composer.lock
 vendor/
 
 # Ignore build files
+build/
 phing/build.properties
 phpunit.xml
