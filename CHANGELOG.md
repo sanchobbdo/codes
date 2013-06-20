@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.0 *Under development*
+-----
+
+- Split ```Util``` into several classes.
+
 1.0.3
 -----
 
