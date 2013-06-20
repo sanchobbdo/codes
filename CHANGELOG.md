@@ -5,6 +5,7 @@ Changelog
 -----
 
 - Split ```Util``` into several classes.
+- Create ```validate``` command.
 
 1.0.3
 -----
