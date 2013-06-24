@@ -18,6 +18,11 @@
     <filter>
         <whitelist>
             <directory suffix=".php">./src/SanchoBBDO</directory>
+            <exclude>./src/SanchoBBDO/Codes/CodesSource.php</exclude>
+            <exclude>./src/SanchoBBDO/Codes/Command/AbstractDumpCommand.php</exclude>
+            <exclude>./src/SanchoBBDO/Codes/Command/AbstractDumpToFileCommand.php</exclude>
+            <exclude>./src/SanchoBBDO/Codes/Command/DumpCsvCommand.php</exclude>
+            <exclude>./src/SanchoBBDO/Codes/Command/DumpXlsCommand.php</exclude>
         </whitelist>
     </filter>
 </phpunit>

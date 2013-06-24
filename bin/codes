@@ -3,12 +3,7 @@
 
 require_once 'vendor/autoload.php';
 
-use SanchoBBDO\Codes\Command as Commands;
-use Symfony\Component\Console\Application;
+use SanchoBBDO\Codes\Application;
 
 $application = new Application();
-
-$application->add(new Commands\DumpCsvCommand('dump:csv'));
-$application->add(new Commands\DumpXlsCommand('dump:xls'));
-
 $application->run();

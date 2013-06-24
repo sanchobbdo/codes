@@ -20,9 +20,24 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * @deprecated AbstractDumpCommand is deprectated since v1.1.0 and will be
+ * removed on v1.2.0. Use AbstractCodesCommand instead.
+ */
 abstract class AbstractDumpCommand extends Command
 {
     private $codes;
+
+    public function __construct($name = null)
+    {
+        trigger_error(
+            "AbstractDumpCommand is deprectated since v1.1.0 and will be " .
+            "removed on v1.2.0. Use AbstractCodesCommand instead.",
+            E_USER_DEPRECATED
+        );
+
+        parent::__construct($name);
+    }
 
     public function configure()
     {

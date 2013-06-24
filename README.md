@@ -13,7 +13,7 @@ Create a ```composer.json``` file in the project root:
 ```json
 {
     "require": {
-        "sanchobbdo/codes": "~1.0"
+        "sanchobbdo/codes": "~1.1"
     }
 }
 ```
@@ -67,21 +67,27 @@ if ($codes->getCoder()->isValid($_POST['code'])) {
 }
 ```
 
-Generating codes
-----------------
+Iterating over codes
+--------------------
 
-From the command line:
-
-Install [symfony/console][s_console], [symfony/yaml][s_yaml] and
-[sonata-project/exporter][sp_exporter] packages using composer:
-
-```bash
-composer require symfony/console:2.2.* \
-                 symfony/yaml:2.2.* \
-                 sonata-project/exporter:1.2.*
+```php
+foreach ($codes as $code) {
+    // Do something with $code
+}
 ```
 
-Create a config file somewhere in your project:
+CLI Application
+---------------
+
+The package comes with a built-in CLI application to validate and dump codes.
+
+To use it you must install the required packages and create a ```config.yml```
+file somewhere in your project:
+
+```bash
+composer require symfony/console:2.3.* \
+                 symfony/yaml:2.2.3
+```
 
 ```yaml
 # /path/to/your/project/codes.yml
@@ -94,34 +100,14 @@ coder:
     mac_length: 6
 ```
 
-From your project root:
+Usage:
 
 ```bash
-# Dump to csv
-./vendor/bin/codes dump:csv file.csv your/config/file.yml
+# Validate codes
+./bin/vendor/codes validate code1 code2 code3 --config path/to/config.yml
 
-# Dump to xls
-./vendor/bin/codes dump:xls file.xls your/config/file.yml
-```
-
----
-
-From code:
-
-Here is an example using the [sonata-project/exporter][sp_exporter] (you can
-roll you're own implementation):
-
-```php
-// On top of your file include required classes
-use Exporter\Handler;
-use Exporter\Writer\CsvWriter;
-use SanchoBBDO\Codes\CodesSource;
-```
-
-```php
-$codesSource = new CodesSource($codes);
-$writer = new CsvWriter('your-file.csv');
-Handler::create($codesSource, $writer)->export();
+# Dump codes
+./bin/vendor/codes dump --config path/to/config.yml
 ```
 
 Disclaimer
@@ -142,6 +128,3 @@ Licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
 [hash_hmac]: http://php.net/manual/en/function.hash-hmac.php
 [hash_algos]: http://www.php.net/manual/en/function.hash-algos.php
-[s_console]: http://symfony.com/doc/current/components/console/index.html
-[s_yaml]: http://symfony.com/doc/current/components/yaml/introduction.html
-[sp_exporter]: https://github.com/sonata-project/exporter

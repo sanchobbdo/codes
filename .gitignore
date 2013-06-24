@@ -1,5 +1,6 @@
 # Common crap.
 .DS_Store
+.phing_targets
 
 # Ignore composer generated files
 composer.phar

@@ -11,12 +11,22 @@ namespace SanchoBBDO\Codes;
 use Exporter\Source\SourceIteratorInterface;
 use SanchoBBDO\Codes\Codes;
 
+/**
+ * @deprecated CodesSource is deprectated since v1.1.0 and will be remove on
+ * v1.2.0. Package no longer implements sonata-project/exporter.
+ */
 class CodesSource implements SourceIteratorInterface
 {
     private $codes;
 
     public function __construct(Codes $codes)
     {
+        trigger_error(
+            "CodesSource is deprectated since v1.1.0 and will be remove on " .
+            "v1.2.0. Package no longer implements sonata-project/exporter.",
+            E_USER_DEPRECATED
+        );
+
         $this->codes = $codes;
     }
 

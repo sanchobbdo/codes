@@ -4,8 +4,12 @@ Changelog
 1.1.0 *Under development*
 -----
 
-- Split ```Util``` into several classes.
-- Create ```validate``` command.
+- Splited ```Util``` into several classes.
+- Revamped commands and cli application:
+    - Created **validate*** command.
+    - Use ```--config``` to load configuration file.
+    - Load config from application, not commands.
+    - Simplified commands and removed ```sontata-project/exporter``` dependency.
 
 1.0.3
 -----

@@ -24,7 +24,6 @@
         "symfony/config": ">=2.2.0"
     },
     "suggest": {
-      "sonata-project/exporter": "To export codes using the built-in console app",
       "symfony/console":  "To export codes using the built-in console app",
       "symfony/yaml":  "To export codes using the built-in console app"
     },
@@ -37,7 +36,6 @@
     "require-dev": {
         "mikey179/vfsStream": "1.1.*",
         "phpunit/phpunit": "3.7.*",
-        "sonata-project/exporter": "1.2.*",
         "symfony/console": "~2",
         "symfony/yaml": "~2"
     },
